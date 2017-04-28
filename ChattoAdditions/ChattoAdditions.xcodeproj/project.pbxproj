@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */; };
+		A52037161EB3A88E0062F983 /* AuthorModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */; };
+		A52037171EB3A88E0062F983 /* AuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037141EB3A88E0062F983 /* AuthorViewModel.swift */; };
+		A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */; };
 		C33DEA451D23F825002AAD26 /* LiveCameraCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */; };
 		C33DEA471D23F8C8002AAD26 /* LiveCameraCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */; };
 		C35FE3C51C0331CF00D42980 /* TextMessagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */; };
@@ -96,6 +99,9 @@
 
 /* Begin PBXFileReference section */
 		3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCollectionViewCellDefaultStyle.swift; sourceTree = "<group>"; };
+		A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModelProtocol.swift; sourceTree = "<group>"; };
+		A52037141EB3A88E0062F983 /* AuthorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModel.swift; sourceTree = "<group>"; };
+		A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModelProtocol.swift; sourceTree = "<group>"; };
 		C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenter.swift; sourceTree = "<group>"; };
 		C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCaptureSession.swift; sourceTree = "<group>"; };
 		C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextMessagePresenterTests.swift; path = "Tests/Chat Items/TextMessages/TextMessagePresenterTests.swift"; sourceTree = SOURCE_ROOT; };
@@ -306,6 +312,9 @@
 		C3C0CBED1BFE496A0052747C /* TextMessages */ = {
 			isa = PBXGroup;
 			children = (
+				A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */,
+				A52037141EB3A88E0062F983 /* AuthorViewModel.swift */,
+				A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */,
 				C3C0CBEE1BFE496A0052747C /* TextMessageModel.swift */,
 				C3C0CBEF1BFE496A0052747C /* TextMessagePresenter.swift */,
 				C3C0CBF01BFE496A0052747C /* TextMessagePresenterBuilder.swift */,
@@ -574,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C9BC8F1D11540D00F3A54E /* TabInputButton.swift in Sources */,
+				A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */,
 				C3C0CC311BFE496A0052747C /* ChatItemDecorationAttributes.swift in Sources */,
 				C3C0CC3B1BFE496A0052747C /* PhotoMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				C38658B21BFE55620012F181 /* AnimationUtils.swift in Sources */,
@@ -583,6 +593,7 @@
 				C3C0CC571BFE496A0052747C /* LiveCameraCell.swift in Sources */,
 				C3C0CC591BFE496A0052747C /* PhotosChatInputItem.swift in Sources */,
 				C3C0CC3A1BFE496A0052747C /* PhotoMessageCollectionViewCell.swift in Sources */,
+				A52037161EB3A88E0062F983 /* AuthorModelProtocol.swift in Sources */,
 				C3C0CC691BFE496A0052747C /* CircleProgressIndicatorView.m in Sources */,
 				C3C0CC5D1BFE496A0052747C /* PhotosInputDataProvider.swift in Sources */,
 				C3C0CC5C1BFE496A0052747C /* PhotosInputCellProvider.swift in Sources */,
@@ -597,6 +608,7 @@
 				C3C0CC601BFE496A0052747C /* ReusableXibView.swift in Sources */,
 				C3C0CC351BFE496A0052747C /* PhotoMessagePresenter.swift in Sources */,
 				C3C0CC341BFE496A0052747C /* PhotoMessageModel.swift in Sources */,
+				A52037171EB3A88E0062F983 /* AuthorViewModel.swift in Sources */,
 				C3C0CC5E1BFE496A0052747C /* PhotosInputView.swift in Sources */,
 				C3C0CC431BFE496A0052747C /* TextMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				C3C0CC521BFE496A0052747C /* ChatInputBarPresenter.swift in Sources */,

@@ -1,18 +1,18 @@
 /*
  The MIT License (MIT)
-
+ 
  Copyright (c) 2015-present Badoo Trading Limited.
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-*/
+ */
 
 import Foundation
 
@@ -50,6 +50,7 @@ public protocol MessageViewModelProtocol: class { // why class? https://gist.git
     var date: String { get }
     var status: MessageViewModelStatus { get }
     var avatarImage: Observable<UIImage?> { set get }
+    var authorViewModel: AuthorViewModelProtocol { get }
     func willBeShown() // Optional
     func wasHidden() // Optional
 }
@@ -78,15 +79,15 @@ extension DecoratedMessageViewModelProtocol {
     public var date: String {
         return self.messageViewModel.date
     }
-
+    
     public var status: MessageViewModelStatus {
         return self.messageViewModel.status
     }
-
+    
     public var showsFailedIcon: Bool {
         return self.messageViewModel.showsFailedIcon
     }
-
+    
     public var avatarImage: Observable<UIImage?> {
         get {
             return self.messageViewModel.avatarImage
@@ -101,37 +102,39 @@ open class MessageViewModel: MessageViewModelProtocol {
     open var isIncoming: Bool {
         return self.messageModel.isIncoming
     }
-
+    
     open var status: MessageViewModelStatus {
         return self.messageModel.status.viewModelStatus()
     }
-
+    
     open var showsTail: Bool
     open lazy var date: String = {
         return self.dateFormatter.string(from: self.messageModel.date as Date)
     }()
-
+    
     public let dateFormatter: DateFormatter
     public private(set) var messageModel: MessageModelProtocol
-
-    public init(dateFormatter: DateFormatter, showsTail: Bool, messageModel: MessageModelProtocol, avatarImage: UIImage?) {
+    
+    public init(dateFormatter: DateFormatter, showsTail: Bool, messageModel: MessageModelProtocol, avatarImage: UIImage?, authorViewModel: AuthorViewModelProtocol) {
         self.dateFormatter = dateFormatter
         self.showsTail = showsTail
         self.messageModel = messageModel
         self.avatarImage = Observable<UIImage?>(avatarImage)
+        self.authorViewModel = authorViewModel
     }
-
+    
     open var showsFailedIcon: Bool {
         return self.status == .failed
     }
-
+    
     public var avatarImage: Observable<UIImage?>
+    public var authorViewModel: AuthorViewModelProtocol
 }
 
 public class MessageViewModelDefaultBuilder {
-
+    
     public init() {}
-
+    
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
@@ -139,9 +142,9 @@ public class MessageViewModelDefaultBuilder {
         formatter.timeStyle = .short
         return formatter
     }()
-
+    
     public func createMessageViewModel(_ message: MessageModelProtocol) -> MessageViewModelProtocol {
         // Override to use default avatarImage
-        return MessageViewModel(dateFormatter: MessageViewModelDefaultBuilder.dateFormatter, showsTail: false, messageModel: message, avatarImage: nil)
+        return MessageViewModel(dateFormatter: MessageViewModelDefaultBuilder.dateFormatter, showsTail: false, messageModel: message, avatarImage: nil, authorViewModel: AuthorViewModel(author: message.author) as! AuthorViewModelProtocol)
     }
 }
