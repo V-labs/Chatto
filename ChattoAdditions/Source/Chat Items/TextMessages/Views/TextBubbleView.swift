@@ -210,6 +210,7 @@ public final class TextBubbleView: UIView, MaximumLayoutWidthSpecificable, Backg
     public var layoutCache: NSCache<AnyObject, AnyObject>!
     private func calculateTextBubbleLayout(preferredMaxLayoutWidth: CGFloat) -> TextBubbleLayoutModel {
         let layoutContext = TextBubbleLayoutModel.LayoutContext(
+            authorText: self.textMessageViewModel.authorViewModel.text,
             text: self.textMessageViewModel.text,
             font: self.style.textFont(viewModel: self.textMessageViewModel, isSelected: self.selected),
             textInsets: self.style.textInsets(viewModel: self.textMessageViewModel, isSelected: self.selected),
@@ -244,13 +245,14 @@ private final class TextBubbleLayoutModel {
     }
     
     struct LayoutContext: Equatable, Hashable {
+        let authorText: String
         let text: String
         let font: UIFont
         let textInsets: UIEdgeInsets
         let preferredMaxLayoutWidth: CGFloat
         
         var hashValue: Int {
-            return Chatto.bma_combine(hashes: [self.text.hashValue, self.textInsets.bma_hashValue, self.preferredMaxLayoutWidth.hashValue, self.font.hashValue])
+            return Chatto.bma_combine(hashes: [self.authorText.hashValue, self.text.hashValue, self.textInsets.bma_hashValue, self.preferredMaxLayoutWidth.hashValue, self.font.hashValue])
         }
         
         static func == (lhs: TextBubbleLayoutModel.LayoutContext, rhs: TextBubbleLayoutModel.LayoutContext) -> Bool {
@@ -263,8 +265,14 @@ private final class TextBubbleLayoutModel {
     func calculateLayout() {
         let textHorizontalInset = self.layoutContext.textInsets.bma_horziontalInset
         let maxTextWidth = self.layoutContext.preferredMaxLayoutWidth - textHorizontalInset
-        let authorTextSize = CGSize(width: maxTextWidth, height: 20)
-        let textSize = CGSize(width: self.textSizeThatFitsWidth(maxTextWidth).width, height: self.textSizeThatFitsWidth(maxTextWidth).height+authorTextSize.height)
+        let authorTextSize = self.layoutContext.authorText.size(attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        
+        var textSizeWidth = self.textSizeThatFitsWidth(maxTextWidth).width
+        if self.textSizeThatFitsWidth(maxTextWidth).width - authorTextSize.width < 0 {
+            textSizeWidth = authorTextSize.width
+        }
+        
+        let textSize = CGSize(width: textSizeWidth, height: self.textSizeThatFitsWidth(maxTextWidth).height+authorTextSize.height)
         let bubbleSize = textSize.bma_outsetBy(dx: textHorizontalInset, dy: self.layoutContext.textInsets.bma_verticalInset)
         self.bubbleFrame = CGRect(origin: CGPoint.zero, size: bubbleSize)
         self.textFrame = CGRect(x: 0, y: authorTextSize.height, width: bubbleFrame.size.width, height: bubbleFrame.size.height-authorTextSize.height)
