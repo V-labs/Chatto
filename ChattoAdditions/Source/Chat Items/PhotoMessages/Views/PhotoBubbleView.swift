@@ -1,18 +1,18 @@
 /*
  The MIT License (MIT)
-
+ 
  Copyright (c) 2015-present Badoo Trading Limited.
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-*/
+ */
 
 import UIKit
 
@@ -33,34 +33,39 @@ public protocol PhotoBubbleViewStyleProtocol {
     func bubbleSize(viewModel: PhotoMessageViewModelProtocol) -> CGSize
     func progressIndicatorColor(viewModel: PhotoMessageViewModelProtocol) -> UIColor
     func overlayColor(viewModel: PhotoMessageViewModelProtocol) -> UIColor?
+    func authorFont(viewModel: PhotoMessageViewModelProtocol, isSelected: Bool) -> UIFont
+    func authorColor(viewModel: PhotoMessageViewModelProtocol, isSelected: Bool) -> UIColor
 }
 
 open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSizingQueryable {
-
+    
     public var viewContext: ViewContext = .normal
     public var animationDuration: CFTimeInterval = 0.33
     public var preferredMaxLayoutWidth: CGFloat = 0
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.commonInit()
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.commonInit()
     }
-
+    
     private func commonInit() {
         self.autoresizesSubviews = false
+        
+        self.addSubview(self.bubbleViewContainer)
+        self.addSubview(self.authorLabel)
         self.addSubview(self.imageView)
         self.addSubview(self.placeholderIconView)
         self.addSubview(self.progressIndicatorView)
+        
     }
-
+    
     public private(set) lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.autoresizingMask = UIViewAutoresizing()
         imageView.clipsToBounds = true
         imageView.autoresizesSubviews = false
         imageView.autoresizingMask = UIViewAutoresizing()
@@ -68,37 +73,42 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
         imageView.addSubview(self.borderView)
         return imageView
     }()
-
+    
+    public private(set) lazy var bubbleViewContainer: UIView = UIView()
+    
+    
+    private var authorLabel: UILabel = UILabel()
+    
     private lazy var borderView = UIImageView()
-
+    
     private lazy var overlayView: UIView = {
         let view = UIView()
         return view
     }()
-
+    
     public private(set) var progressIndicatorView: CircleProgressIndicatorView = {
         let progressView = CircleProgressIndicatorView(size: CGSize(width: 33, height: 33))
         return progressView!
     }()
-
+    
     private var placeholderIconView: UIImageView = {
         let imageView = UIImageView()
         imageView.autoresizingMask = UIViewAutoresizing()
         return imageView
     }()
-
+    
     public var photoMessageViewModel: PhotoMessageViewModelProtocol! {
         didSet {
             self.updateViews()
         }
     }
-
+    
     public var photoMessageStyle: PhotoBubbleViewStyleProtocol! {
         didSet {
             self.updateViews()
         }
     }
-
+    
     public private(set) var isUpdating: Bool = false
     public func performBatchUpdates(_ updateClosure: @escaping () -> Void, animated: Bool, completion: (() -> Void)?) {
         self.isUpdating = true
@@ -118,17 +128,42 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
             updateAndRefreshViews()
         }
     }
-
+    
+    
     open func updateViews() {
         if self.viewContext == .sizing { return }
         if isUpdating { return }
         guard let _ = self.photoMessageViewModel, let _ = self.photoMessageStyle else { return }
-
+        
         self.updateProgressIndicator()
         self.updateImages()
+        
+        if self.photoMessageViewModel.isIncoming {
+            self.updateAuthorLabel()
+            self.updateBubbleView()
+        }
+        
         self.setNeedsLayout()
     }
-
+    
+    func updateAuthorLabel() {
+        
+        guard let style = self.photoMessageStyle, let viewModel = self.photoMessageViewModel else { return }
+        
+        self.authorLabel.textColor = style.authorColor(viewModel: viewModel, isSelected: self.isUpdating)
+        self.authorLabel.font = style.authorFont(viewModel: viewModel, isSelected: self.isUpdating)
+        self.authorLabel.text = viewModel.authorViewModel.text
+        
+    }
+    
+    func updateBubbleView() {
+        self.bubbleViewContainer.backgroundColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1)
+        self.bubbleViewContainer.layer.cornerRadius = 10.0
+        self.bubbleViewContainer.layer.borderColor = UIColor(red: 178.0/255.0, green: 178.0/255.0, blue: 178.0/255.0, alpha: 1).cgColor
+        self.bubbleViewContainer.layer.borderWidth = 0.5
+        self.bubbleViewContainer.layer.masksToBounds = true
+    }
+    
     private func updateProgressIndicator() {
         let transferStatus = self.photoMessageViewModel.transferStatus.value
         let transferProgress = self.photoMessageViewModel.transferProgress.value
@@ -136,10 +171,10 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
         self.progressIndicatorView.progressLineColor = self.photoMessageStyle.progressIndicatorColor(viewModel: self.photoMessageViewModel)
         self.progressIndicatorView.progressLineWidth = 1
         self.progressIndicatorView.setProgress(CGFloat(transferProgress))
-
+        
         switch transferStatus {
         case .idle, .success, .failed:
-
+            
             break
         case .transfering:
             switch transferProgress {
@@ -152,7 +187,7 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
             }
         }
     }
-
+    
     private func updateImages() {
         if let image = self.photoMessageViewModel.image.value {
             self.imageView.image = image
@@ -164,7 +199,7 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
             self.placeholderIconView.tintColor = tintColor
             self.placeholderIconView.isHidden = false
         }
-
+        
         if let overlayColor = self.photoMessageStyle.overlayColor(viewModel: self.photoMessageViewModel) {
             self.overlayView.backgroundColor = overlayColor
             self.overlayView.alpha = 1
@@ -177,13 +212,18 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
         self.borderView.image = self.photoMessageStyle.borderImage(viewModel: photoMessageViewModel)
         self.imageView.layer.mask = UIImageView(image: self.photoMessageStyle.maskingImage(viewModel: self.photoMessageViewModel)).layer
     }
-
+    
+    private func updateAuthor() {
+        self.authorLabel.text = self.photoMessageViewModel.authorViewModel.text
+        
+    }
+    
     // MARK: Layout
-
+    
     open override func sizeThatFits(_ size: CGSize) -> CGSize {
         return self.calculateTextBubbleLayout(maximumWidth: size.width).size
     }
-
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         let layout = self.calculateTextBubbleLayout(maximumWidth: self.preferredMaxLayoutWidth)
@@ -194,54 +234,70 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
         self.imageView.layer.mask?.frame = self.imageView.layer.bounds
         self.overlayView.bma_rect = self.imageView.bounds
         self.borderView.bma_rect = self.imageView.bounds
+        self.authorLabel.bma_rect = layout.authorFrame
+        if self.photoMessageViewModel.isIncoming {
+            self.bubbleViewContainer.bma_rect = layout.bubbleFrame
+        }
+        
     }
-
+    
     private func calculateTextBubbleLayout(maximumWidth: CGFloat) -> PhotoBubbleLayoutModel {
         let layoutContext = PhotoBubbleLayoutModel.LayoutContext(photoMessageViewModel: self.photoMessageViewModel, style: self.photoMessageStyle, containerWidth: maximumWidth)
         let layoutModel = PhotoBubbleLayoutModel(layoutContext: layoutContext)
         layoutModel.calculateLayout()
         return layoutModel
     }
-
+    
     open var canCalculateSizeInBackground: Bool {
         return true
     }
-
+    
 }
 
 private class PhotoBubbleLayoutModel {
+    var authorFrame: CGRect = CGRect.zero
     var photoFrame: CGRect = CGRect.zero
     var visualCenter: CGPoint = CGPoint.zero // Because image is cropped a few points on the side of the tail, the apparent center will be a bit shifted
     var size: CGSize = CGSize.zero
-
+    var bubbleFrame: CGRect = CGRect.zero
+    
     struct LayoutContext {
+        let authorText: String
         let photoSize: CGSize
         let preferredMaxLayoutWidth: CGFloat
         let isIncoming: Bool
         let tailWidth: CGFloat
-
-        init(photoSize: CGSize, tailWidth: CGFloat, isIncoming: Bool, preferredMaxLayoutWidth width: CGFloat) {
+        
+        init(authorText: String, photoSize: CGSize, tailWidth: CGFloat, isIncoming: Bool, preferredMaxLayoutWidth width: CGFloat) {
+            self.authorText = authorText
             self.photoSize = photoSize
             self.tailWidth = tailWidth
             self.isIncoming = isIncoming
             self.preferredMaxLayoutWidth = width
         }
-
+        
         init(photoMessageViewModel model: PhotoMessageViewModelProtocol, style: PhotoBubbleViewStyleProtocol, containerWidth width: CGFloat) {
-            self.init(photoSize: style.bubbleSize(viewModel: model), tailWidth:style.tailWidth(viewModel: model), isIncoming: model.isIncoming, preferredMaxLayoutWidth: width)
+            self.init(authorText: model.authorViewModel.text, photoSize: style.bubbleSize(viewModel: model), tailWidth:style.tailWidth(viewModel: model), isIncoming: model.isIncoming, preferredMaxLayoutWidth: width)
         }
     }
-
+    
     let layoutContext: LayoutContext
     init(layoutContext: LayoutContext) {
         self.layoutContext = layoutContext
     }
-
+    
     func calculateLayout() {
         let photoSize = self.layoutContext.photoSize
-        self.photoFrame = CGRect(origin: CGPoint.zero, size: photoSize)
+        self.authorFrame = CGRect(x: self.layoutContext.tailWidth + 5, y: 2, width: photoSize.width, height: 30)
+        self.photoFrame = self.layoutContext.isIncoming ? CGRect(origin: CGPoint(x: 0, y: authorFrame.size.height), size: CGSize(width: photoSize.width, height: photoSize.height-authorFrame.size.height)) : CGRect(origin : CGPoint.zero, size: photoSize)
         let offsetX: CGFloat = 0.5 * self.layoutContext.tailWidth * (self.layoutContext.isIncoming ? 1.0 : -1.0)
         self.visualCenter = self.photoFrame.bma_center.bma_offsetBy(dx: offsetX, dy: 0)
-        self.size = photoSize
+        self.bubbleFrame = CGRect(x: self.layoutContext.tailWidth, y: 0, width: (visualCenter.x-self.layoutContext.tailWidth)*2, height: (self.photoFrame.size.height + authorFrame.size.height)/2)
+        if self.layoutContext.isIncoming {
+            self.size = CGSize(width: photoFrame.size.width, height: photoFrame.size.height + authorFrame.size.height)
+        } else {
+            self.size = photoSize
+        }
+        
     }
 }
