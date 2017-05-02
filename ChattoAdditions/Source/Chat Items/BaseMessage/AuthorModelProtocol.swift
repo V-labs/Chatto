@@ -10,5 +10,5 @@ import Foundation
 
 public protocol AuthorModelProtocol {
     var name: String { get set }
-    var speciality: String { get set }
+    var color: UIColor { get set }
 }
