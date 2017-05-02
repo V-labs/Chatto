@@ -48,6 +48,11 @@ open class PhotoMessageViewModel<PhotoMessageModelT: PhotoMessageModelProtocol>:
     public var photoMessage: PhotoMessageModelProtocol {
         return self._photoMessage
     }
+    
+    public var authorViewModel: AuthorViewModelProtocol {
+        return self.messageViewModel.authorViewModel
+    }
+    
     public let _photoMessage: PhotoMessageModelT // Can't make photoMessage: PhotoMessageModelT: https://gist.github.com/diegosanchezr/5a66c7af862e1117b556
     public var transferStatus: Observable<TransferStatus> = Observable(.idle)
     public var transferProgress: Observable<Double> = Observable(0)

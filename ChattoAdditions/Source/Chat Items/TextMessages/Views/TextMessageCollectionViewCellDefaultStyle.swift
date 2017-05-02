@@ -106,6 +106,14 @@ open class TextMessageCollectionViewCellDefaultStyle: TextMessageCollectionViewC
         return self.baseStyle.borderImage(viewModel: viewModel)
     }
 
+    open func authorFont(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIFont {
+        return viewModel.authorViewModel.font
+    }
+    
+    open func authorColor(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIColor {
+        return viewModel.authorViewModel.color
+    }
+    
     open func bubbleImage(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIImage {
         let key = ImageKey.normal(isIncoming: viewModel.isIncoming, status: viewModel.status, showsTail: viewModel.showsTail, isSelected: isSelected)
 
