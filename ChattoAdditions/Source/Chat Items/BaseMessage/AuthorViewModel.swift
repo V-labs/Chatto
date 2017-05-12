@@ -12,7 +12,7 @@ class AuthorViewModel: NSObject, AuthorViewModelProtocol {
     
     var text: String = ""
     var color: UIColor = UIColor.gray
-    var font: UIFont = UIFont.systemFont(ofSize: 14)
+    var font: UIFont = UIFont.boldSystemFont(ofSize: 14)
     
     
     init(author: AuthorModelProtocol) {

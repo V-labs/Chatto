@@ -55,7 +55,6 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
     
     private func commonInit() {
         self.autoresizesSubviews = false
-        
         self.addSubview(self.bubbleViewContainer)
         self.addSubview(self.authorLabel)
         self.addSubview(self.imageView)
@@ -236,7 +235,10 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
         self.borderView.bma_rect = self.imageView.bounds
         self.authorLabel.bma_rect = layout.authorFrame
         if self.photoMessageViewModel.isIncoming {
+            self.bubbleViewContainer.alpha = 1
             self.bubbleViewContainer.bma_rect = layout.bubbleFrame
+        } else {
+            self.bubbleViewContainer.alpha = 0
         }
         
     }
@@ -288,13 +290,15 @@ private class PhotoBubbleLayoutModel {
     
     func calculateLayout() {
         let photoSize = self.layoutContext.photoSize
-        self.authorFrame = CGRect(x: self.layoutContext.tailWidth + 5, y: 2, width: photoSize.width, height: 30)
-        self.photoFrame = self.layoutContext.isIncoming ? CGRect(origin: CGPoint(x: 0, y: authorFrame.size.height), size: CGSize(width: photoSize.width, height: photoSize.height-authorFrame.size.height)) : CGRect(origin : CGPoint.zero, size: photoSize)
+        self.authorFrame = CGRect(x: self.layoutContext.tailWidth + 10, y: 2, width: photoSize.width, height: 40)
+        self.photoFrame = self.layoutContext.isIncoming ? CGRect(origin: CGPoint(x: 10, y: authorFrame.size.height), size: CGSize(width: photoSize.width-20, height: photoSize.height-authorFrame.size.height-20)) : CGRect(origin : CGPoint.zero, size: photoSize)
+        
         let offsetX: CGFloat = 0.5 * self.layoutContext.tailWidth * (self.layoutContext.isIncoming ? 1.0 : -1.0)
         self.visualCenter = self.photoFrame.bma_center.bma_offsetBy(dx: offsetX, dy: 0)
-        self.bubbleFrame = CGRect(x: self.layoutContext.tailWidth, y: 0, width: (visualCenter.x-self.layoutContext.tailWidth)*2, height: (self.photoFrame.size.height + authorFrame.size.height)/2)
+        
         if self.layoutContext.isIncoming {
-            self.size = CGSize(width: photoFrame.size.width, height: photoFrame.size.height + authorFrame.size.height)
+            self.bubbleFrame = CGRect(x: 0, y: 0, width: (visualCenter.x-self.layoutContext.tailWidth)*2+10, height: self.photoFrame.size.height + authorFrame.size.height+20)
+            self.size = bubbleFrame.size
         } else {
             self.size = photoSize
         }
