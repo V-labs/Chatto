@@ -38,6 +38,7 @@ public struct ChatInputBarAppearance {
         public var interItemSpacing: CGFloat = 10
         public var height: CGFloat = 44
         public var contentInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        public var disclaimerText = ""
     }
     
     public struct TextInputAppearance {
@@ -47,7 +48,6 @@ public struct ChatInputBarAppearance {
         public var placeholderFont = UIFont.systemFont(ofSize: 12)
         public var placeholderColor = UIColor.gray
         public var placeholderText = ""
-        public var disclaimerText = ""
         public var textInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
     }
     

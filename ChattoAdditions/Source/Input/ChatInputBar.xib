@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fsh-hH-hKG" userLabel="TextView" customClass="ExpandableTextView" customModule="ChattoAdditions" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="45.5" width="600" height="75.5"/>
+                    <rect key="frame" x="0.0" y="35" width="600" height="86"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -60,8 +60,8 @@
                         </mask>
                     </variation>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attention, le secret médical vous oblige à ne jamais donner le nom du patient dans vos échanges." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRQ-kH-fFt">
-                    <rect key="frame" x="42" y="5" width="553" height="29.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disclaimer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRQ-kH-fFt">
+                    <rect key="frame" x="42" y="10" width="553" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="250" constant="29.5" id="64i-yc-1sH"/>
                     </constraints>
@@ -70,24 +70,25 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_disclaimer" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-7y-I6A">
-                    <rect key="frame" x="10" y="9.5" width="22" height="22"/>
+                    <rect key="frame" x="10" y="6.5" width="22" height="22.5"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="cpD-gc-4iA"/>
                         <constraint firstAttribute="width" constant="22" id="tzj-AG-0cg"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-fp-7di" userLabel="Top border">
-                    <rect key="frame" x="0.0" y="44.5" width="600" height="1"/>
+                    <rect key="frame" x="0.0" y="34" width="600" height="1"/>
                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" identifier="top-border-height" id="IIv-qg-Tlp"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="fsh-hH-hKG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0hb-TC-77u"/>
                 <constraint firstAttribute="trailing" secondItem="QRQ-kH-fFt" secondAttribute="trailing" constant="5" id="1Ab-A1-4wt"/>
+                <constraint firstItem="hkz-tq-X6j" firstAttribute="top" secondItem="b1n-fp-7di" secondAttribute="bottom" id="1TH-Zu-04X"/>
                 <constraint firstItem="hkz-tq-X6j" firstAttribute="top" secondItem="fsh-hH-hKG" secondAttribute="bottom" id="4Vl-vV-gaa"/>
                 <constraint firstItem="fsh-hH-hKG" firstAttribute="top" secondItem="b1n-fp-7di" secondAttribute="bottom" id="9xY-OX-k7K"/>
                 <constraint firstAttribute="bottom" secondItem="hkz-tq-X6j" secondAttribute="bottom" id="HFl-3K-Xpk"/>
@@ -98,11 +99,10 @@
                 <constraint firstItem="5Ke-7y-I6A" firstAttribute="centerY" secondItem="QRQ-kH-fFt" secondAttribute="centerY" id="Znp-5s-kS3"/>
                 <constraint firstItem="hkz-tq-X6j" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eGb-Fb-2Of"/>
                 <constraint firstItem="QRQ-kH-fFt" firstAttribute="leading" secondItem="5Ke-7y-I6A" secondAttribute="trailing" constant="10" id="esj-LQ-s0J"/>
-                <constraint firstItem="hkz-tq-X6j" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gpt-vU-KzZ"/>
                 <constraint firstItem="b1n-fp-7di" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hwQ-pA-00x"/>
-                <constraint firstItem="QRQ-kH-fFt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="laB-kU-UHh"/>
                 <constraint firstAttribute="trailing" secondItem="b1n-fp-7di" secondAttribute="trailing" id="lmb-AV-eyD"/>
                 <constraint firstItem="b1n-fp-7di" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mci-2b-Z7f"/>
+                <constraint firstItem="QRQ-kH-fFt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="ryq-Hh-R8t"/>
                 <constraint firstAttribute="trailing" secondItem="fsh-hH-hKG" secondAttribute="trailing" id="vVY-rg-Rwc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -110,7 +110,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="gpt-vU-KzZ"/>
+                    <exclude reference="1TH-Zu-04X"/>
                 </mask>
             </variation>
             <connections>
@@ -120,12 +120,12 @@
                 <outlet property="tabBarContainerHeightConstraint" destination="vwa-F7-EIB" id="d3G-fs-hEH"/>
                 <outlet property="textView" destination="fsh-hH-hKG" id="QMH-G9-ADs"/>
                 <outlet property="topBorderHeightConstraint" destination="IIv-qg-Tlp" id="qiB-dH-AHS"/>
-                <outletCollection property="constraintsForVisibleTextView" destination="4Vl-vV-gaa" collectionClass="NSMutableArray" id="rBg-0B-c4B"/>
-                <outletCollection property="constraintsForHiddenTextView" destination="gpt-vU-KzZ" collectionClass="NSMutableArray" id="EzL-hX-Wle"/>
                 <outletCollection property="constraintsForHiddenSendButton" destination="ciR-Nt-1tI" collectionClass="NSMutableArray" id="KTM-lg-5xh"/>
                 <outletCollection property="constraintsForVisibleSendButton" destination="ABn-ah-JYL" collectionClass="NSMutableArray" id="oqj-uC-3TX"/>
+                <outletCollection property="constraintsForHiddenTextView" destination="1TH-Zu-04X" collectionClass="NSMutableArray" id="jra-mi-fNL"/>
+                <outletCollection property="constraintsForVisibleTextView" destination="4Vl-vV-gaa" collectionClass="NSMutableArray" id="rMP-c3-dWy"/>
             </connections>
-            <point key="canvasLocation" x="-109" y="-218.5"/>
+            <point key="canvasLocation" x="-149" y="-265"/>
         </view>
     </objects>
     <resources>
