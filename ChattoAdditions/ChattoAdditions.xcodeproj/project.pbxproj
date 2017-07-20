@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */; };
+		A511490F1F21276E0015FF79 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A511490D1F21276E0015FF79 /* Localizable.strings */; };
+		A51149101F21276E0015FF79 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A511490E1F21276E0015FF79 /* UIAlertController+Extensions.swift */; };
 		A52037161EB3A88E0062F983 /* AuthorModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */; };
 		A52037171EB3A88E0062F983 /* AuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037141EB3A88E0062F983 /* AuthorViewModel.swift */; };
 		A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */; };
@@ -99,12 +101,14 @@
 
 /* Begin PBXFileReference section */
 		3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCollectionViewCellDefaultStyle.swift; sourceTree = "<group>"; };
-		A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorModelProtocol.swift; path = AuthorModelProtocol.swift; sourceTree = "<group>"; };
-		A52037141EB3A88E0062F983 /* AuthorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorViewModel.swift; path = AuthorViewModel.swift; sourceTree = "<group>"; };
-		A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorViewModelProtocol.swift; path = AuthorViewModelProtocol.swift; sourceTree = "<group>"; };
+		A511490D1F21276E0015FF79 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A511490E1F21276E0015FF79 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModelProtocol.swift; sourceTree = "<group>"; };
+		A52037141EB3A88E0062F983 /* AuthorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModel.swift; sourceTree = "<group>"; };
+		A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModelProtocol.swift; sourceTree = "<group>"; };
 		C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenter.swift; sourceTree = "<group>"; };
 		C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCaptureSession.swift; sourceTree = "<group>"; };
-		C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextMessagePresenterTests.swift; path = TextMessagePresenterTests.swift; sourceTree = "<group>"; };
+		C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessagePresenterTests.swift; sourceTree = "<group>"; };
 		C35FE3C71C033E7800D42980 /* PhotoMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMessagePresenterTests.swift; sourceTree = "<group>"; };
 		C363C33E1D2405F800599FF5 /* LiveCameraCellPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenterTests.swift; sourceTree = "<group>"; };
 		C3815CFF1C036B3000DF95CA /* PhotoMessagePresenterBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMessagePresenterBuilderTests.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		C3C0CBD21BFE496A0052747C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A511490D1F21276E0015FF79 /* Localizable.strings */,
+				A511490E1F21276E0015FF79 /* UIAlertController+Extensions.swift */,
 				C3C0CBD51BFE496A0052747C /* Chat Items */,
 				C3C0CC031BFE496A0052747C /* Input */,
 				C3C0CC1D1BFE496A0052747C /* UI Components */,
@@ -546,6 +552,7 @@
 				C3C0CC6C1BFE496A0052747C /* CircleProgressIndicator.xcassets in Resources */,
 				C3C0CC581BFE496A0052747C /* Photos.xcassets in Resources */,
 				C3C0CC2D1BFE496A0052747C /* BaseMessageAssets.xcassets in Resources */,
+				A511490F1F21276E0015FF79 /* Localizable.strings in Resources */,
 				C3C0CC611BFE496A0052747C /* Text.xcassets in Resources */,
 				C3C0CC501BFE496A0052747C /* ChatInputBar.xib in Resources */,
 				C3C0CC391BFE496A0052747C /* PhotoMessageAssets.xcassets in Resources */,
@@ -616,6 +623,7 @@
 				C3C0CC621BFE496A0052747C /* TextChatInputItem.swift in Sources */,
 				C3C0CC3E1BFE496A0052747C /* TextMessagePresenterBuilder.swift in Sources */,
 				C3C0CC511BFE496A0052747C /* ChatInputBarAppearance.swift in Sources */,
+				A51149101F21276E0015FF79 /* UIAlertController+Extensions.swift in Sources */,
 				C3C0CC641BFE496A0052747C /* Observable.swift in Sources */,
 				C3C0CC2E1BFE496A0052747C /* BaseMessageCollectionViewCell.swift in Sources */,
 				C3C0CC5A1BFE496A0052747C /* PhotosInputCameraPicker.swift in Sources */,
