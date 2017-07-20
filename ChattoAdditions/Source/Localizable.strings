@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by Rémi Caroff on 20/07/2017.
+
+*/
+
+"app.cancel" = "Annuler";
+"chat.alert.disclaimer" = "Attention, le secret médical vous oblige à toujours masquer le nom du patient sur les documents que vous envoyez.";
+"chat.alert.understood" = "J'ai compris";
