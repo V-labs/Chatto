@@ -1,18 +1,18 @@
 /*
  The MIT License (MIT)
- 
+
  Copyright (c) 2015-present Badoo Trading Limited.
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,9 +25,9 @@
 import UIKit
 
 open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewCellStyleProtocol {
-    
+
     typealias Class = BaseMessageCollectionViewCellDefaultStyle
-    
+
     public struct Colors {
         let incoming: () -> UIColor
         let outgoing: () -> UIColor
@@ -38,7 +38,7 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             self.outgoing = outgoing
         }
     }
-    
+
     public struct BubbleBorderImages {
         public let borderIncomingTail: () -> UIImage
         public let borderIncomingNoTail: () -> UIImage
@@ -55,7 +55,7 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             self.borderOutgoingNoTail = borderOutgoingNoTail
         }
     }
-    
+
     public struct FailedIconImages {
         let normal: () -> UIImage
         let highlighted: () -> UIImage
@@ -66,7 +66,7 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             self.highlighted = highlighted
         }
     }
-    
+
     public struct DateTextStyle {
         let font: () -> UIFont
         let color: () -> UIColor
@@ -77,7 +77,7 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             self.color = color
         }
     }
-    
+
     public struct AvatarStyle {
         let size: CGSize
         let alignment: VerticalAlignment
@@ -86,54 +86,69 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             self.alignment = alignment
         }
     }
-    
+
+    public struct SelectionIndicatorStyle {
+        let margins: UIEdgeInsets
+        let selectedIcon: () -> UIImage
+        let deselectedIcon: () -> UIImage
+        public init(margins: UIEdgeInsets,
+                    selectedIcon: @autoclosure @escaping () -> UIImage,
+                    deselectedIcon: @autoclosure @escaping () -> UIImage) {
+            self.margins = margins
+            self.selectedIcon = selectedIcon
+            self.deselectedIcon = deselectedIcon
+        }
+    }
+
     let colors: Colors
     let bubbleBorderImages: BubbleBorderImages?
     let failedIconImages: FailedIconImages
     let layoutConstants: BaseMessageCollectionViewCellLayoutConstants
     let dateTextStyle: DateTextStyle
     let avatarStyle: AvatarStyle
-    public init (
-        colors: Colors = Class.createDefaultColors(),
-        bubbleBorderImages: BubbleBorderImages? = Class.createDefaultBubbleBorderImages(),
-        failedIconImages: FailedIconImages = Class.createDefaultFailedIconImages(),
-        layoutConstants: BaseMessageCollectionViewCellLayoutConstants = Class.createDefaultLayoutConstants(),
-        dateTextStyle: DateTextStyle = Class.createDefaultDateTextStyle(),
-        avatarStyle: AvatarStyle = AvatarStyle()) {
-        self.colors = colors
-        self.bubbleBorderImages = bubbleBorderImages
-        self.failedIconImages = failedIconImages
-        self.layoutConstants = layoutConstants
-        self.dateTextStyle = dateTextStyle
-        self.avatarStyle = avatarStyle
+    let selectionIndicatorStyle: SelectionIndicatorStyle
+
+    public init(
+        colors: Colors = BaseMessageCollectionViewCellDefaultStyle.createDefaultColors(),
+        bubbleBorderImages: BubbleBorderImages? = BaseMessageCollectionViewCellDefaultStyle.createDefaultBubbleBorderImages(),
+        failedIconImages: FailedIconImages = BaseMessageCollectionViewCellDefaultStyle.createDefaultFailedIconImages(),
+        layoutConstants: BaseMessageCollectionViewCellLayoutConstants = BaseMessageCollectionViewCellDefaultStyle.createDefaultLayoutConstants(),
+        dateTextStyle: DateTextStyle = BaseMessageCollectionViewCellDefaultStyle.createDefaultDateTextStyle(),
+        avatarStyle: AvatarStyle = AvatarStyle(),
+        selectionIndicatorStyle: SelectionIndicatorStyle = BaseMessageCollectionViewCellDefaultStyle.createDefaultSelectionIndicatorStyle()) {
+            self.colors = colors
+            self.bubbleBorderImages = bubbleBorderImages
+            self.failedIconImages = failedIconImages
+            self.layoutConstants = layoutConstants
+            self.dateTextStyle = dateTextStyle
+            self.avatarStyle = avatarStyle
+            self.selectionIndicatorStyle = selectionIndicatorStyle
+
+            self.dateStringAttributes = [
+                NSAttributedString.Key.font: self.dateTextStyle.font(),
+                NSAttributedString.Key.foregroundColor: self.dateTextStyle.color()
+            ]
     }
-    
+
     public lazy var baseColorIncoming: UIColor = self.colors.incoming()
     public lazy var baseColorOutgoing: UIColor = self.colors.outgoing()
-    
+
     public lazy var borderIncomingTail: UIImage? = self.bubbleBorderImages?.borderIncomingTail()
     public lazy var borderIncomingNoTail: UIImage? = self.bubbleBorderImages?.borderIncomingNoTail()
     public lazy var borderOutgoingTail: UIImage? = self.bubbleBorderImages?.borderOutgoingTail()
     public lazy var borderOutgoingNoTail: UIImage? = self.bubbleBorderImages?.borderOutgoingNoTail()
-    
+
     public lazy var failedIcon: UIImage = self.failedIconImages.normal()
     public lazy var failedIconHighlighted: UIImage = self.failedIconImages.highlighted()
-    private lazy var dateFont: UIFont = self.dateTextStyle.font()
-    private lazy var dateFontColor: UIColor = self.dateTextStyle.color()
-    
-    private lazy var dateStringAttributes: [String : AnyObject] = {
-        return [
-            NSFontAttributeName : self.dateFont,
-            NSForegroundColorAttributeName: self.dateFontColor
-        ]
-    }()
-    
+
+    private let dateStringAttributes: [NSAttributedString.Key: AnyObject]
+
     open func attributedStringForDate(_ date: String) -> NSAttributedString {
         return NSAttributedString(string: date, attributes: self.dateStringAttributes)
     }
-    
+
     open func borderImage(viewModel: MessageViewModelProtocol) -> UIImage? {
-        switch (viewModel.isIncoming, viewModel.showsTail) {
+        switch (viewModel.isIncoming, viewModel.decorationAttributes.isShowingTail) {
         case (true, true):
             return self.borderIncomingTail
         case (true, false):
@@ -144,25 +159,37 @@ open class BaseMessageCollectionViewCellDefaultStyle: BaseMessageCollectionViewC
             return self.borderOutgoingNoTail
         }
     }
-    
+
     open func avatarSize(viewModel: MessageViewModelProtocol) -> CGSize {
         return self.avatarStyle.size
     }
-    
+
     open func avatarVerticalAlignment(viewModel: MessageViewModelProtocol) -> VerticalAlignment {
         return self.avatarStyle.alignment
     }
-    
+
+    public var selectionIndicatorMargins: UIEdgeInsets {
+        return self.selectionIndicatorStyle.margins
+    }
+
+    public func selectionIndicatorIcon(for viewModel: MessageViewModelProtocol) -> UIImage {
+        return viewModel.decorationAttributes.isSelected ? self.selectionIndicatorStyle.selectedIcon() : self.selectionIndicatorStyle.deselectedIcon()
+    }
+
     open func layoutConstants(viewModel: MessageViewModelProtocol) -> BaseMessageCollectionViewCellLayoutConstants {
         return self.layoutConstants
     }
 }
 
 public extension BaseMessageCollectionViewCellDefaultStyle { // Default values
+
+    private static let defaultIncomingColor = UIColor.bma_color(rgb: 0xE6ECF2)
+    private static let defaultOutgoingColor = UIColor.bma_color(rgb: 0x3D68F5)
+
     static public func createDefaultColors() -> Colors {
-        return Colors(incoming: UIColor.bma_color(rgb: 0xE6ECF2), outgoing: UIColor.bma_color(rgb: 0x3D68F5))
+        return Colors(incoming: self.defaultIncomingColor, outgoing: self.defaultOutgoingColor)
     }
-    
+
     static public func createDefaultBubbleBorderImages() -> BubbleBorderImages {
         return BubbleBorderImages(
             borderIncomingTail: UIImage(named: "bubble-incoming-border-tail", in: Bundle(for: Class.self), compatibleWith: nil)!,
@@ -171,7 +198,7 @@ public extension BaseMessageCollectionViewCellDefaultStyle { // Default values
             borderOutgoingNoTail: UIImage(named: "bubble-outgoing-border", in: Bundle(for: Class.self), compatibleWith: nil)!
         )
     }
-    
+
     static public func createDefaultFailedIconImages() -> FailedIconImages {
         let normal = {
             return UIImage(named: "base-message-failed-icon", in: Bundle(for: Class.self), compatibleWith: nil)!
@@ -181,15 +208,26 @@ public extension BaseMessageCollectionViewCellDefaultStyle { // Default values
             highlighted: normal().bma_blendWithColor(UIColor.black.withAlphaComponent(0.10))
         )
     }
-    
+
     static public func createDefaultDateTextStyle() -> DateTextStyle {
         return DateTextStyle(font: UIFont.systemFont(ofSize: 12), color: UIColor.bma_color(rgb: 0x9aa3ab))
     }
-    
+
     static public func createDefaultLayoutConstants() -> BaseMessageCollectionViewCellLayoutConstants {
         return BaseMessageCollectionViewCellLayoutConstants(horizontalMargin: 11,
                                                             horizontalInterspacing: 4,
                                                             horizontalTimestampMargin: 11,
                                                             maxContainerWidthPercentageForBubbleView: 0.68)
+    }
+
+    private static let selectionIndicatorIconSelected = UIImage(named: "base-message-checked-icon", in: Bundle(for: Class.self), compatibleWith: nil)!.bma_tintWithColor(BaseMessageCollectionViewCellDefaultStyle.defaultOutgoingColor)
+    private static let selectionIndicatorIconDeselected = UIImage(named: "base-message-unchecked-icon", in: Bundle(for: Class.self), compatibleWith: nil)!.bma_tintWithColor(UIColor.bma_color(rgb: 0xC6C6C6))
+
+    static public func createDefaultSelectionIndicatorStyle() -> SelectionIndicatorStyle {
+        return SelectionIndicatorStyle(
+            margins: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10),
+            selectedIcon: self.selectionIndicatorIconSelected,
+            deselectedIcon: self.selectionIndicatorIconDeselected
+        )
     }
 }
