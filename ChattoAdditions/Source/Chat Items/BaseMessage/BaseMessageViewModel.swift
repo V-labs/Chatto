@@ -47,6 +47,7 @@ public protocol MessageViewModelProtocol: class { // why class? https://gist.git
     var decorationAttributes: BaseMessageDecorationAttributes { get set }
     var isIncoming: Bool { get }
     var isUserInteractionEnabled: Bool { get set }
+    var showsTail: Bool {get set}
     var isShowingFailedIcon: Bool { get }
     var date: String { get }
     var status: MessageViewModelStatus { get }
