@@ -38,7 +38,7 @@ public enum TransferStatus {
 
 public protocol PhotoMessageViewModelProtocol: DecoratedMessageViewModelProtocol {
     var transferDirection: Observable<TransferDirection> { get set }
-    var transferProgress: Observable<Double> { get  set } // in [0,1]
+    var transferProgress: Observable<Double> { get set } // in [0,1]
     var transferStatus: Observable<TransferStatus> { get set }
     var image: Observable<UIImage?> { get set }
     var imageSize: CGSize { get }
@@ -50,11 +50,11 @@ open class PhotoMessageViewModel<PhotoMessageModelT: PhotoMessageModelProtocol>:
     public var photoMessage: PhotoMessageModelProtocol {
         return self._photoMessage
     }
-    
+
     public var authorViewModel: AuthorViewModelProtocol {
         return self.messageViewModel.authorViewModel
     }
-    
+
     public let _photoMessage: PhotoMessageModelT // Can't make photoMessage: PhotoMessageModelT: https://gist.github.com/diegosanchezr/5a66c7af862e1117b556
     public var transferStatus: Observable<TransferStatus> = Observable(.idle)
     public var transferProgress: Observable<Double> = Observable(0)
@@ -69,33 +69,44 @@ open class PhotoMessageViewModel<PhotoMessageModelT: PhotoMessageModelProtocol>:
     open var isShowingFailedIcon: Bool {
         return self.messageViewModel.isShowingFailedIcon || self.transferStatus.value == .failed
     }
-    
-    public init(photoMessage: PhotoMessageModelT, messageViewModel: MessageViewModelProtocol) {
+    public var showsTail: Bool
+
+    public init(
+            photoMessage: PhotoMessageModelT,
+            messageViewModel: MessageViewModelProtocol,
+            showsTail: Bool
+    ) {
         self._photoMessage = photoMessage
         self.image = Observable(photoMessage.image)
         self.messageViewModel = messageViewModel
+        self.showsTail = showsTail
     }
-    
+
     open func willBeShown() {
         // Need to declare empty. Otherwise subclass code won't execute (as of Xcode 7.2)
     }
-    
+
     open func wasHidden() {
         // Need to declare empty. Otherwise subclass code won't execute (as of Xcode 7.2)
     }
 }
 
 open class PhotoMessageViewModelDefaultBuilder<PhotoMessageModelT: PhotoMessageModelProtocol>: ViewModelBuilderProtocol {
-    public init() {}
-    
+    public init() {
+    }
+
     let messageViewModelBuilder = MessageViewModelDefaultBuilder()
-    
+
     open func createViewModel(_ model: PhotoMessageModelT) -> PhotoMessageViewModel<PhotoMessageModelT> {
         let messageViewModel = self.messageViewModelBuilder.createMessageViewModel(model)
-        let photoMessageViewModel = PhotoMessageViewModel(photoMessage: model, messageViewModel: messageViewModel)
+        let photoMessageViewModel = PhotoMessageViewModel(
+                photoMessage: model,
+                messageViewModel: messageViewModel,
+                showsTail: false
+        )
         return photoMessageViewModel
     }
-    
+
     open func canCreateViewModel(fromModel model: Any) -> Bool {
         return model is PhotoMessageModelT
     }

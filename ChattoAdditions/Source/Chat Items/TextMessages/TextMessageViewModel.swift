@@ -43,10 +43,16 @@ open class TextMessageViewModel<TextMessageModelT: TextMessageModelProtocol>: Te
     public let messageViewModel: MessageViewModelProtocol
     public let cellAccessibilityIdentifier = "chatto.message.text.cell"
     public let bubbleAccessibilityIdentifier = "chatto.message.text.bubble"
+    public var showsTail: Bool
 
-    public init(textMessage: TextMessageModelT, messageViewModel: MessageViewModelProtocol) {
+    public init(
+            textMessage: TextMessageModelT,
+            messageViewModel: MessageViewModelProtocol,
+            showsTail: Bool
+    ) {
         self.textMessage = textMessage
         self.messageViewModel = messageViewModel
+        self.showsTail = showsTail
     }
 
     open func willBeShown() {
@@ -57,17 +63,21 @@ open class TextMessageViewModel<TextMessageModelT: TextMessageModelProtocol>: Te
         // Need to declare empty. Otherwise subclass code won't execute (as of Xcode 7.2)
     }
 
-
 }
 
 open class TextMessageViewModelDefaultBuilder<TextMessageModelT: TextMessageModelProtocol>: ViewModelBuilderProtocol {
-    public init() {}
+    public init() {
+    }
 
     let messageViewModelBuilder = MessageViewModelDefaultBuilder()
 
     open func createViewModel(_ textMessage: TextMessageModelT) -> TextMessageViewModel<TextMessageModelT> {
         let messageViewModel = self.messageViewModelBuilder.createMessageViewModel(textMessage)
-        let textMessageViewModel = TextMessageViewModel(textMessage: textMessage, messageViewModel: messageViewModel)
+        let textMessageViewModel = TextMessageViewModel(
+                textMessage: textMessage,
+                messageViewModel: messageViewModel,
+                showsTail: false
+        )
         return textMessageViewModel
     }
 
