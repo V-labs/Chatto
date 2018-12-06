@@ -84,7 +84,10 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
     }
 
     @objc(collectionView:shouldShowMenuForItemAtIndexPath:)
-    open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath?) -> Bool {
+        // Note: IndexPath set optional due to https://github.com/badoo/Chatto/issues/310
+        // Might be related: https://bugs.swift.org/browse/SR-2417
+        guard let indexPath = indexPath else { return false }
         return self.presenterForIndexPath(indexPath).shouldShowMenu()
     }
 
@@ -114,7 +117,14 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
     }
 
     public func createPresenterForChatItem(_ chatItem: ChatItemProtocol) -> ChatItemPresenterProtocol {
+        assert(self.presenterFactory != nil, "Presenter factory is not initialized")
         return self.presenterFactory.createChatItemPresenter(chatItem)
+    }
+
+    public func confugureCollectionViewWithPresenters() {
+        assert(self.presenterFactory == nil, "Presenter factory is already initialized")
+        self.presenterFactory = self.createPresenterFactory()
+        self.presenterFactory.configure(withCollectionView: self.collectionView)
     }
 
     public func decorationAttributesForIndexPath(_ indexPath: IndexPath) -> ChatItemDecorationAttributesProtocol? {

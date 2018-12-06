@@ -28,7 +28,17 @@ import XCTest
 class PhotoMessagePresenterTests: XCTestCase, UICollectionViewDataSource {
 
     var presenter: PhotoMessagePresenter<PhotoMessageViewModelDefaultBuilder<PhotoMessageModel<MessageModel>>, PhotoMessageTestHandler>!
-    let decorationAttributes = ChatItemDecorationAttributes(bottomMargin: 0, showsTail: false, canShowAvatar: false)
+    let decorationAttributes = ChatItemDecorationAttributes(
+        bottomMargin: 0,
+        messageDecorationAttributes: BaseMessageDecorationAttributes(
+            canShowFailedIcon: true,
+            isShowingTail: false,
+            isShowingAvatar: false,
+            isShowingSelectionIndicator: false,
+            isSelected: false
+        )
+    )
+
     let testImage = UIImage()
     override func setUp() {
         super.setUp()
@@ -102,5 +112,11 @@ class PhotoMessageTestHandler: BaseMessageInteractionHandlerProtocol {
     var didHandleEndLongPressOnBubble = false
     func userDidEndLongPressOnBubble(viewModel: ViewModelT) {
         self.didHandleEndLongPressOnBubble = true
+    }
+
+    func userDidSelectMessage(viewModel: ViewModelT) {
+    }
+
+    func userDidDeselectMessage(viewModel: ViewModelT) {
     }
 }
