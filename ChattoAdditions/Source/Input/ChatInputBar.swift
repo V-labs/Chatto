@@ -51,7 +51,8 @@ open class ChatInputBar: ReusableXibView {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var topBorderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var disclaimerLabel: UILabel!
-
+    @IBOutlet weak var isTypingLabel: UILabel!
+    
     @IBOutlet var constraintsForHiddenTextView: [NSLayoutConstraint]!
     @IBOutlet var constraintsForVisibleTextView: [NSLayoutConstraint]!
 
@@ -182,7 +183,7 @@ open class ChatInputBar: ReusableXibView {
     fileprivate func updateSendButton() {
         self.sendButton.isEnabled = self.shouldEnableSendButton(self)
     }
-
+    
     @IBAction func buttonTapped(_ sender: AnyObject) {
         self.presenter?.onSendButtonPressed()
         self.delegate?.inputBarSendButtonPressed(self)
