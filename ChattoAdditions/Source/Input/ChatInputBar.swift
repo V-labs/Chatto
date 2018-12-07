@@ -192,6 +192,14 @@ open class ChatInputBar: ReusableXibView {
     public func setTextViewPlaceholderAccessibilityIdentifer(_ accessibilityIdentifer: String) {
         self.textView.setTextPlaceholderAccessibilityIdentifier(accessibilityIdentifer)
     }
+
+    public func setIsTyping(attributedString: NSAttributedString) {
+        self.isTypingLabel.attributedText = attributedString
+    }
+
+    public func setIsTyping(string: String) {
+        self.isTypingLabel.text = string
+    }
 }
 
 // MARK: - ChatInputItemViewDelegate
