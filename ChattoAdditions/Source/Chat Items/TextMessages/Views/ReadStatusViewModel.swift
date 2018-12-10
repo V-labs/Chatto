@@ -11,13 +11,22 @@ public enum ReadStatusValue {
 }
 
 public protocol ReadStatusViewModelProtocol {
-    var text: String { get set }
+    var delegate: ReadStatusViewModelDelegate? { get set }
+    var value: ReadStatusValue { get set }
+}
+
+public protocol ReadStatusViewModelDelegate {
+    func getText(value: ReadStatusValue) -> String
+    func getImage(value: ReadStatusValue) -> UIImage
 }
 
 public class ReadStatusViewModel: ReadStatusViewModelProtocol {
-    public var text: String = ""
 
-    public init(text: String) {
-        self.text = text
+    public var value: ReadStatusValue = .none
+    public var delegate: ReadStatusViewModelDelegate?
+
+    public init(value: ReadStatusValue, delegate: ReadStatusViewModelDelegate) {
+        self.value = value
+        self.delegate = delegate
     }
 }

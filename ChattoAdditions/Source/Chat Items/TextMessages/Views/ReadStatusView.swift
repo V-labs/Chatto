@@ -62,6 +62,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
 
     private func commonInit() {
         self.addSubview(self.label)
+        self.addSubview(self.checkMarkView)
     }
 
     private var _label: UILabel?
@@ -70,9 +71,20 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             self._label = UILabel(frame: .zero)
         }
         if let viewModel = self.readStatusViewModel {
-            self._label!.text = viewModel.text
+            self._label!.text = viewModel.delegate?.getText(value: viewModel.value)
         }
         return self._label!
+    }
+
+    private var _checkMarkView: UIImageView?
+    private var checkMarkView: UIImageView {
+        if self._checkMarkView == nil {
+            self._checkMarkView = UIImageView(frame: .zero)
+        }
+        if let viewModel = self.readStatusViewModel {
+            self._checkMarkView!.image = viewModel.delegate?.getImage(value: viewModel.value)
+        }
+        return self._checkMarkView!
     }
 
     public private(set) var isUpdating: Bool = false
@@ -131,9 +143,15 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             needsToUpdateText = true
         }
 
-        let text = self.readStatusViewModel.text
+        let text = self.readStatusViewModel.delegate?.getText(value: self.readStatusViewModel.value)
         if text != self.label.text {
             self.label.text = text
+            needsToUpdateText = true
+        }
+
+        let image = self.readStatusViewModel.delegate?.getImage(value: self.readStatusViewModel.value)
+        if image != self.checkMarkView.image {
+            self.checkMarkView.image = image
             needsToUpdateText = true
         }
 
@@ -153,13 +171,14 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
         super.layoutSubviews()
         let layout = self.calculateReadStatusLayout(preferredMaxLayoutWidth: self.preferredMaxLayoutWidth)
         self.label.bma_rect = layout.textFrame
+        self.checkMarkView.bma_rect = layout.checkFrame
     }
 
     public var layoutCache: NSCache<AnyObject, AnyObject>!
 
     private func calculateReadStatusLayout(preferredMaxLayoutWidth: CGFloat) -> ReadStatusLayoutModel {
         let layoutContext = ReadStatusLayoutModel.LayoutContext(
-                text: self.readStatusViewModel.text,
+                text: self.readStatusViewModel.delegate?.getText(value: self.readStatusViewModel.value) ?? "",
                 font: self.style.font,
                 textInsets: self.style.textInsets,
                 preferredMaxLayoutWidth: preferredMaxLayoutWidth
@@ -184,6 +203,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
 private final class ReadStatusLayoutModel {
     let layoutContext: LayoutContext
     var textFrame: CGRect = CGRect.zero
+    var checkFrame: CGRect = CGRect.zero
     var size: CGSize = CGSize.zero
 
     init(layoutContext: LayoutContext) {
@@ -208,6 +228,8 @@ private final class ReadStatusLayoutModel {
     }
 
     func calculateLayout() {
+        let padding: CGFloat = 16.0
+
         let textHorizontalInset = self.layoutContext.textInsets.bma_horziontalInset
         let maxTextWidth = self.layoutContext.preferredMaxLayoutWidth - textHorizontalInset
 
@@ -215,7 +237,8 @@ private final class ReadStatusLayoutModel {
 
         let textSize = CGSize(width: textSizeWidth, height: self.textSizeThatFitsWidth(maxTextWidth).height)
         self.textFrame = CGRect(x: 0, y: 0, width: textSize.width, height: textSize.height)
-        self.size = textSize
+        self.checkFrame = CGRect(x: self.textFrame.width + padding / 2, y: self.textFrame.height / 2 - 4, width: 8, height: 8)
+        self.size = CGSize(width: textSize.width + padding + checkFrame.width, height: max(textSize.height, checkFrame.height))
     }
 
     private func textSizeThatFitsWidth(_ width: CGFloat) -> CGSize {
