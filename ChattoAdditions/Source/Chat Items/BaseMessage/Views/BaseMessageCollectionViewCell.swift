@@ -69,14 +69,15 @@ public struct BaseMessageCollectionViewCellLayoutConstants {
 */
 
 open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, BackgroundSizingQueryable, AccessoryViewRevealable, UIGestureRecognizerDelegate where
-    BubbleViewType: UIView,
-    BubbleViewType: MaximumLayoutWidthSpecificable,
-    BubbleViewType: BackgroundSizingQueryable {
+BubbleViewType: UIView,
+BubbleViewType: MaximumLayoutWidthSpecificable,
+BubbleViewType: BackgroundSizingQueryable {
 
     public var animationDuration: CFTimeInterval = 0.33
     open var viewContext: ViewContext = .normal
 
     public private(set) var isUpdating: Bool = false
+
     open func performBatchUpdates(_ updateClosure: @escaping () -> Void, animated: Bool, completion: (() -> Void)?) {
         self.isUpdating = true
         let updateAndRefreshViews = {
@@ -124,16 +125,25 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
     }
 
     public private(set) var bubbleView: BubbleViewType!
+
     open func createBubbleView() -> BubbleViewType! {
         assert(false, "Override in subclass")
         return nil
     }
 
     public private(set) var avatarView: UIImageView!
+
     func createAvatarView() -> UIImageView! {
         let avatarImageView = UIImageView(frame: CGRect.zero)
         avatarImageView.isUserInteractionEnabled = true
         return avatarImageView
+    }
+
+    public private(set) var readStatusLabel: ReadStatusView!
+
+    func createReadStatusLabel() -> ReadStatusView! {
+        let readStatus = ReadStatusView()
+        return readStatus
     }
 
     public override init(frame: CGRect) {
@@ -166,6 +176,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
         self.avatarView = self.createAvatarView()
         self.avatarView.addGestureRecognizer(self.avatarTapGestureRecognizer)
         self.bubbleView = self.createBubbleView()
+        self.readStatusLabel = self.createReadStatusLabel()
         self.bubbleView.isExclusiveTouch = true
         self.bubbleView.addGestureRecognizer(self.tapGestureRecognizer)
         self.bubbleView.addGestureRecognizer(self.longPressGestureRecognizer)
@@ -173,6 +184,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
         self.contentView.addSubview(self.bubbleView)
         self.contentView.addSubview(self.failedButton)
         self.contentView.addSubview(self.selectionIndicator)
+        self.contentView.addSubview(self.readStatusLabel)
         self.contentView.isExclusiveTouch = true
         self.isExclusiveTouch = true
 
@@ -203,9 +215,15 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
     // MARK: View model binding
 
     final private func updateViews() {
-        if self.viewContext == .sizing { return }
-        if self.isUpdating { return }
-        guard let viewModel = self.messageViewModel, let style = self.baseStyle else { return }
+        if self.viewContext == .sizing {
+            return
+        }
+        if self.isUpdating {
+            return
+        }
+        guard let viewModel = self.messageViewModel, let style = self.baseStyle else {
+            return
+        }
         self.bubbleView.isUserInteractionEnabled = viewModel.isUserInteractionEnabled
         if self.shouldShowFailedIcon {
             self.failedButton.setImage(self.baseStyle.failedIcon, for: .normal)
@@ -240,10 +258,16 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
         super.layoutSubviews()
 
         let layout = self.calculateLayout(availableWidth: self.contentView.bounds.width)
+
         self.failedButton.bma_rect = layout.failedButtonFrame
+
         self.bubbleView.bma_rect = layout.bubbleViewFrame
         self.bubbleView.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
         self.bubbleView.layoutIfNeeded()
+
+        self.readStatusLabel.bma_rect = layout.readStatusLabelFrame
+        self.readStatusLabel.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
+        self.readStatusLabel.layoutIfNeeded()
 
         self.avatarView.bma_rect = layout.avatarViewFrame
         self.selectionIndicator.bma_rect = layout.selectionIndicatorFrame
@@ -272,19 +296,20 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
     private func calculateLayout(availableWidth: CGFloat) -> Layout {
         let layoutConstants = baseStyle.layoutConstants(viewModel: messageViewModel)
         let parameters = LayoutParameters(
-            containerWidth: availableWidth,
-            horizontalMargin: layoutConstants.horizontalMargin,
-            horizontalInterspacing: layoutConstants.horizontalInterspacing,
-            maxContainerWidthPercentageForBubbleView: layoutConstants.maxContainerWidthPercentageForBubbleView,
-            bubbleView: self.bubbleView,
-            isIncoming: self.messageViewModel.isIncoming,
-            isShowingFailedButton: self.shouldShowFailedIcon,
-            failedButtonSize: self.baseStyle.failedIcon.size,
-            avatarSize: self.baseStyle.avatarSize(viewModel: self.messageViewModel),
-            avatarVerticalAlignment: self.baseStyle.avatarVerticalAlignment(viewModel: self.messageViewModel),
-            isShowingSelectionIndicator: self.messageViewModel.decorationAttributes.isShowingSelectionIndicator,
-            selectionIndicatorSize: self.baseStyle.selectionIndicatorIcon(for: self.messageViewModel).size,
-            selectionIndicatorMargins: self.baseStyle.selectionIndicatorMargins
+                containerWidth: availableWidth,
+                horizontalMargin: layoutConstants.horizontalMargin,
+                horizontalInterspacing: layoutConstants.horizontalInterspacing,
+                maxContainerWidthPercentageForBubbleView: layoutConstants.maxContainerWidthPercentageForBubbleView,
+                bubbleView: self.bubbleView,
+                isIncoming: self.messageViewModel.isIncoming,
+                isShowingFailedButton: self.shouldShowFailedIcon,
+                failedButtonSize: self.baseStyle.failedIcon.size,
+                avatarSize: self.baseStyle.avatarSize(viewModel: self.messageViewModel),
+                avatarVerticalAlignment: self.baseStyle.avatarVerticalAlignment(viewModel: self.messageViewModel),
+                isShowingSelectionIndicator: self.messageViewModel.decorationAttributes.isShowingSelectionIndicator,
+                selectionIndicatorSize: self.baseStyle.selectionIndicatorIcon(for: self.messageViewModel).size,
+                selectionIndicatorMargins: self.baseStyle.selectionIndicatorMargins,
+                readStatusLabel: self.readStatusLabel
         )
         var layoutModel = Layout()
         layoutModel.calculateLayout(parameters: parameters)
@@ -325,10 +350,10 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
             if animated {
                 UIView.animate(withDuration: self.animationDuration, animations: { () -> Void in
                     self.layoutIfNeeded()
-                    }, completion: { (_) -> Void in
-                        if offset == 0 {
-                            self.removeAccessoryView()
-                        }
+                }, completion: { (_) -> Void in
+                    if offset == 0 {
+                        self.removeAccessoryView()
+                    }
                 })
             }
         }
@@ -372,18 +397,21 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
     // MARK: User interaction
 
     public var onFailedButtonTapped: ((_ cell: BaseMessageCollectionViewCell) -> Void)?
+
     @objc
     func failedButtonTapped() {
         self.onFailedButtonTapped?(self)
     }
 
     public var onAvatarTapped: ((_ cell: BaseMessageCollectionViewCell) -> Void)?
+
     @objc
     func avatarTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
         self.onAvatarTapped?(self)
     }
 
     public var onBubbleTapped: ((_ cell: BaseMessageCollectionViewCell) -> Void)?
+
     @objc
     func bubbleTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
         self.onBubbleTapped?(self)
@@ -391,6 +419,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
 
     public var onBubbleLongPressBegan: ((_ cell: BaseMessageCollectionViewCell) -> Void)?
     public var onBubbleLongPressEnded: ((_ cell: BaseMessageCollectionViewCell) -> Void)?
+
     @objc
     private func bubbleLongPressed(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         switch longPressGestureRecognizer.state {
@@ -408,6 +437,7 @@ private struct Layout {
     private (set) var size = CGSize.zero
     private (set) var failedButtonFrame = CGRect.zero
     private (set) var bubbleViewFrame = CGRect.zero
+    private (set) var readStatusLabelFrame = CGRect.zero
     private (set) var avatarViewFrame = CGRect.zero
     private (set) var selectionIndicatorFrame = CGRect.zero
     private (set) var preferredMaxWidthForBubble: CGFloat = 0
@@ -422,33 +452,42 @@ private struct Layout {
         let horizontalInterspacing = parameters.horizontalInterspacing
         let avatarSize = parameters.avatarSize
         let selectionIndicatorSize = parameters.selectionIndicatorSize
+        let readStatusLabel = parameters.readStatusLabel
 
         let preferredWidthForBubble = (containerWidth * parameters.maxContainerWidthPercentageForBubbleView).bma_round()
         let bubbleSize = bubbleView.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
-        let containerRect = CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: bubbleSize.height))
+//        let readStatusLabelSize = CGSize(width: 100, height: 35)
+        let readStatusLabelSize = readStatusLabel.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
+        let containerRect = CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: bubbleSize.height + readStatusLabelSize.height))
 
         self.bubbleViewFrame = bubbleSize.bma_rect(
-            inContainer: containerRect,
-            xAlignament: .center,
-            yAlignment: .center
+                inContainer: containerRect,
+                xAlignament: .center,
+                yAlignment: .top
         )
 
         self.failedButtonFrame = failedButtonSize.bma_rect(
-            inContainer: containerRect,
-            xAlignament: .center,
-            yAlignment: .center
+                inContainer: containerRect,
+                xAlignament: .center,
+                yAlignment: .center
         )
 
         self.avatarViewFrame = avatarSize.bma_rect(
-            inContainer: containerRect,
-            xAlignament: .center,
-            yAlignment: parameters.avatarVerticalAlignment
+                inContainer: containerRect,
+                xAlignament: .center,
+                yAlignment: parameters.avatarVerticalAlignment
         )
 
         self.selectionIndicatorFrame = selectionIndicatorSize.bma_rect(
-            inContainer: containerRect,
-            xAlignament: .left,
-            yAlignment: .center
+                inContainer: containerRect,
+                xAlignament: .left,
+                yAlignment: .center
+        )
+
+        self.readStatusLabelFrame = readStatusLabelSize.bma_rect(
+                inContainer: containerRect,
+                xAlignament: .right,
+                yAlignment: .bottom
         )
 
         // Adjust horizontal positions
@@ -495,6 +534,8 @@ private struct Layout {
         }
 
         self.size = containerRect.size
+        self.size.height += self.readStatusLabelFrame.size.height
+        print("readStatusFrame: \(self.readStatusLabelFrame)")
         self.preferredMaxWidthForBubble = preferredWidthForBubble
     }
 }
@@ -513,4 +554,5 @@ private struct LayoutParameters {
     let isShowingSelectionIndicator: Bool
     let selectionIndicatorSize: CGSize
     let selectionIndicatorMargins: UIEdgeInsets
+    let readStatusLabel: UIView
 }

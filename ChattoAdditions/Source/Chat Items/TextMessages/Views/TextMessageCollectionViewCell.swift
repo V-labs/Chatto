@@ -77,6 +77,7 @@ public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell<
     public var layoutCache: NSCache<AnyObject, AnyObject>! {
         didSet {
             self.bubbleView.layoutCache = self.layoutCache
+            self.readStatusLabel.layoutCache = self.layoutCache
         }
     }
 }
