@@ -25,41 +25,42 @@
 import Foundation
 
 open class PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
-    : BaseMessagePresenter<PhotoBubbleView, ViewModelBuilderT, InteractionHandlerT> where
-    ViewModelBuilderT: ViewModelBuilderProtocol,
-    ViewModelBuilderT.ViewModelT: PhotoMessageViewModelProtocol,
-    InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
+        : BaseMessagePresenter<PhotoBubbleView, ViewModelBuilderT, InteractionHandlerT> where
+ViewModelBuilderT: ViewModelBuilderProtocol,
+ViewModelBuilderT.ViewModelT: PhotoMessageViewModelProtocol,
+InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
 InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
     public typealias ModelT = ViewModelBuilderT.ModelT
     public typealias ViewModelT = ViewModelBuilderT.ViewModelT
-    
+
     public let photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol
-    
-    public init (
-        messageModel: ModelT,
-        viewModelBuilder: ViewModelBuilderT,
-        interactionHandler: InteractionHandlerT?,
-        sizingCell: PhotoMessageCollectionViewCell,
-        baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
-        photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol) {
+
+    public init(
+            messageModel: ModelT,
+            viewModelBuilder: ViewModelBuilderT,
+            interactionHandler: InteractionHandlerT?,
+            sizingCell: PhotoMessageCollectionViewCell,
+            baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
+            photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol,
+            readStatusViewModel: ReadStatusViewModel) {
         self.photoCellStyle = photoCellStyle
         super.init(
-            messageModel: messageModel,
-            viewModelBuilder: viewModelBuilder,
-            interactionHandler: interactionHandler,
-            sizingCell: sizingCell,
-            cellStyle: baseCellStyle
+                messageModel: messageModel,
+                viewModelBuilder: viewModelBuilder,
+                interactionHandler: interactionHandler,
+                sizingCell: sizingCell,
+                cellStyle: baseCellStyle
         )
     }
-    
+
     public final override class func registerCells(_ collectionView: UICollectionView) {
         collectionView.register(PhotoMessageCollectionViewCell.self, forCellWithReuseIdentifier: "photo-message")
     }
-    
+
     public final override func dequeueCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: "photo-message", for: indexPath)
     }
-    
+
     open override func createViewModel() -> ViewModelBuilderT.ViewModelT {
         let viewModel = self.viewModelBuilder.createViewModel(self.messageModel)
         let updateClosure = { [weak self] (old: Any, new: Any) -> Void in
@@ -72,7 +73,7 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
         viewModel.transferStatus.observe(self, closure: updateClosure)
         return viewModel
     }
-    
+
     public var photoCell: PhotoMessageCollectionViewCell? {
         if let cell = self.cell {
             if let photoCell = cell as? PhotoMessageCollectionViewCell {
@@ -83,20 +84,20 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
         }
         return nil
     }
-    
+
     open override func configureCell(_ cell: BaseMessageCollectionViewCell<PhotoBubbleView>, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
         guard let cell = cell as? PhotoMessageCollectionViewCell else {
             assert(false, "Invalid cell received")
             return
         }
-        
+
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
             cell.photoMessageViewModel = self.messageViewModel
             cell.photoMessageStyle = self.photoCellStyle
             additionalConfiguration?()
         }
     }
-    
+
     public func updateCurrentCell() {
         if let cell = self.photoCell, let decorationAttributes = self.decorationAttributes {
             self.configureCell(cell, decorationAttributes: decorationAttributes, animated: self.itemVisibility != .appearing, additionalConfiguration: nil)

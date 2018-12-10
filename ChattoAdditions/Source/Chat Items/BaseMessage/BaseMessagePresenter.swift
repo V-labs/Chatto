@@ -44,23 +44,23 @@ public protocol BaseMessageInteractionHandlerProtocol {
 }
 
 open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandlerT>: BaseChatItemPresenter<BaseMessageCollectionViewCell<BubbleViewT>> where
-    ViewModelBuilderT: ViewModelBuilderProtocol,
-    InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
-    InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT,
-    BubbleViewT: UIView,
-    BubbleViewT: MaximumLayoutWidthSpecificable,
-    BubbleViewT: BackgroundSizingQueryable {
+ViewModelBuilderT: ViewModelBuilderProtocol,
+InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
+InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT,
+BubbleViewT: UIView,
+BubbleViewT: MaximumLayoutWidthSpecificable,
+BubbleViewT: BackgroundSizingQueryable {
 
     public typealias CellT = BaseMessageCollectionViewCell<BubbleViewT>
     public typealias ModelT = ViewModelBuilderT.ModelT
     public typealias ViewModelT = ViewModelBuilderT.ViewModelT
 
-    public init (
-        messageModel: ModelT,
-        viewModelBuilder: ViewModelBuilderT,
-        interactionHandler: InteractionHandlerT?,
-        sizingCell: BaseMessageCollectionViewCell<BubbleViewT>,
-        cellStyle: BaseMessageCollectionViewCellStyleProtocol) {
+    public init(
+            messageModel: ModelT,
+            viewModelBuilder: ViewModelBuilderT,
+            interactionHandler: InteractionHandlerT?,
+            sizingCell: BaseMessageCollectionViewCell<BubbleViewT>,
+            cellStyle: BaseMessageCollectionViewCellStyleProtocol) {
         self.messageModel = messageModel
         self.sizingCell = sizingCell
         self.viewModelBuilder = viewModelBuilder
@@ -98,6 +98,7 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
     }
 
     public var decorationAttributes: ChatItemDecorationAttributes!
+
     open func configureCell(_ cell: CellT, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
         cell.performBatchUpdates({ () -> Void in
             self.messageViewModel.decorationAttributes = decorationAttributes.messageDecorationAttributes
@@ -108,27 +109,39 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
 
             cell.allowAccessoryViewRevealing = !decorationAttributes.messageDecorationAttributes.isShowingSelectionIndicator
             cell.onBubbleTapped = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellBubbleTapped()
             }
             cell.onBubbleLongPressBegan = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellBubbleLongPressBegan()
             }
             cell.onBubbleLongPressEnded = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellBubbleLongPressEnded()
             }
             cell.onAvatarTapped = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellAvatarTapped()
             }
             cell.onFailedButtonTapped = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellFailedButtonTapped(cell.failedButton)
             }
             cell.onSelection = { [weak self] (cell) in
-                guard let sSelf = self else { return }
+                guard let sSelf = self else {
+                    return
+                }
                 sSelf.onCellSelection()
             }
             additionalConfiguration?()
@@ -157,7 +170,9 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
     }
 
     open override func shouldShowMenu() -> Bool {
-        guard self.canShowMenu() else { return false }
+        guard self.canShowMenu() else {
+            return false
+        }
         guard let cell = self.cell else {
             assert(false, "Investigate -> Fix or remove assert")
             return false

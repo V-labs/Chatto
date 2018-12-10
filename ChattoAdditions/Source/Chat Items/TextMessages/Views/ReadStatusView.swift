@@ -27,28 +27,24 @@ import Chatto
 
 public protocol ReadStatusViewStyleProtocol {
 
-    func textFont(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIFont
-    func textColor(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIColor
-    func textInsets(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIEdgeInsets
+    var font: UIFont { get set }
+    var textColor: UIColor { get set }
+    var textInsets: UIEdgeInsets { get set }
 }
 
 public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, BackgroundSizingQueryable {
 
     public var preferredMaxLayoutWidth: CGFloat = 0
     public var animationDuration: CFTimeInterval = 0.33
-    public var viewContext: ViewContext = .normal // {
-//        didSet {
-//            if self.viewContext == .sizing {
-//                self.textView.dataDetectorTypes = UIDataDetectorTypes()
-//                self.textView.isSelectable = false
-//            } else {
-//                self.textView.dataDetectorTypes = .all
-//                self.textView.isSelectable = true
-//            }
-//        }
-//    }
+    public var viewContext: ViewContext = .normal
 
-    public var style: TextBubbleViewStyleProtocol! {
+    public var style: ReadStatusViewStyleProtocol! {
+        didSet {
+            self.updateViews()
+        }
+    }
+
+    public var readStatusViewModel: ReadStatusViewModelProtocol! {
         didSet {
             self.updateViews()
         }
@@ -68,29 +64,16 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
         self.addSubview(self.label)
     }
 
-    private var label: UILabel = {
-        let label = UILabel()
-//        let textView = ChatMessageTextView()
-//        UIView.performWithoutAnimation({ () -> Void in
-//             fixes iOS 8 blinking when cell appears
-//            textView.backgroundColor = UIColor.clear
-//        })
-//        textView.isEditable = false
-//        textView.isSelectable = true
-//        textView.dataDetectorTypes = .all
-//        textView.scrollsToTop = false
-//        textView.isScrollEnabled = false
-//        textView.bounces = false
-//        textView.bouncesZoom = false
-//        textView.showsHorizontalScrollIndicator = false
-//        textView.showsVerticalScrollIndicator = false
-//        textView.isExclusiveTouch = true
-//        textView.textContainer.lineFragmentPadding = 0
-//        textView.text = "Lu par tout le monde"
-        label.text = "Lu par tout le monde"
-        label.textColor = .orange
-        return label
-    }()
+    private var _label: UILabel?
+    private var label: UILabel {
+        if self._label == nil {
+            self._label = UILabel(frame: .zero)
+        }
+        if let viewModel = self.readStatusViewModel {
+            self._label!.text = viewModel.text
+        }
+        return self._label!
+    }
 
     public private(set) var isUpdating: Bool = false
 
@@ -132,30 +115,33 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             return
         }
 
-        let font = UIFont(name: "Montserrat-regular", size: 12)!
-        let textColor = UIColor.orange
-
         var needsToUpdateText = false
+
+        let font = self.style.font
 
         if self.label.font != font {
             self.label.font = font
             needsToUpdateText = true
         }
 
+        let textColor = self.style.textColor
+
         if self.label.textColor != textColor {
             self.label.textColor = textColor
-//            self.label.linkTextAttributes = [
-//                NSAttributedString.Key.foregroundColor: textColor,
-//                NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
-//            ]
             needsToUpdateText = true
         }
 
-//        let textInsets = style.textInsets(viewModel: viewModel, isSelected: false)
-//    let textInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-//        if self.label.textContainerInset != textInsets {
-//            self.label.textContainerInset = textInsets
-//        }
+        let text = self.readStatusViewModel.text
+        if text != self.label.text {
+            self.label.text = text
+            needsToUpdateText = true
+        }
+
+        if needsToUpdateText {
+            self.setNeedsLayout()
+        }
+
+        self.layoutSubviews()
     }
 
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -173,9 +159,9 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
 
     private func calculateReadStatusLayout(preferredMaxLayoutWidth: CGFloat) -> ReadStatusLayoutModel {
         let layoutContext = ReadStatusLayoutModel.LayoutContext(
-                text: "Lu par tout le monde",
-                font: .systemFont(ofSize: 12),
-                textInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
+                text: self.readStatusViewModel.text,
+                font: self.style.font,
+                textInsets: self.style.textInsets,
                 preferredMaxLayoutWidth: preferredMaxLayoutWidth
         )
 

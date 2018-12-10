@@ -139,10 +139,17 @@ BubbleViewType: BackgroundSizingQueryable {
         return avatarImageView
     }
 
+    public var readStatusViewModel: ReadStatusViewModelProtocol! {
+        didSet {
+            self.readStatusLabel.readStatusViewModel = self.readStatusViewModel
+        }
+    }
+
     public private(set) var readStatusLabel: ReadStatusView!
 
     func createReadStatusLabel() -> ReadStatusView! {
-        let readStatus = ReadStatusView()
+        let readStatus = ReadStatusView(frame: .zero)
+        readStatus.readStatusViewModel = readStatusViewModel
         return readStatus
     }
 
