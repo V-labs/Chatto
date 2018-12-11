@@ -25,35 +25,41 @@
 import UIKit
 
 open class TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
-: BaseMessagePresenter<TextBubbleView, ViewModelBuilderT, InteractionHandlerT> where
-    ViewModelBuilderT: ViewModelBuilderProtocol,
-    ViewModelBuilderT.ViewModelT: TextMessageViewModelProtocol,
-    InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
-    InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
+        : BaseMessagePresenter<TextBubbleView, ViewModelBuilderT, InteractionHandlerT> where
+ViewModelBuilderT: ViewModelBuilderProtocol,
+ViewModelBuilderT.ViewModelT: TextMessageViewModelProtocol,
+InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
+InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
     public typealias ModelT = ViewModelBuilderT.ModelT
     public typealias ViewModelT = ViewModelBuilderT.ViewModelT
 
-    public init (
-        messageModel: ModelT,
-        viewModelBuilder: ViewModelBuilderT,
-        interactionHandler: InteractionHandlerT?,
-        sizingCell: TextMessageCollectionViewCell,
-        baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
-        textCellStyle: TextMessageCollectionViewCellStyleProtocol,
-        layoutCache: NSCache<AnyObject, AnyObject>) {
-            self.layoutCache = layoutCache
-            self.textCellStyle = textCellStyle
-            super.init(
+    public init(
+            messageModel: ModelT,
+            viewModelBuilder: ViewModelBuilderT,
+            interactionHandler: InteractionHandlerT?,
+            sizingCell: TextMessageCollectionViewCell,
+            baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
+            textCellStyle: TextMessageCollectionViewCellStyleProtocol,
+            layoutCache: NSCache<AnyObject, AnyObject>,
+            readStatusStyle: ReadStatusViewStyleProtocol,
+            readStatusViewModel: ReadStatusViewModel) {
+        self.layoutCache = layoutCache
+        self.textCellStyle = textCellStyle
+        self.readStatusStyle = readStatusStyle
+        self.readStatusViewModel = readStatusViewModel
+        super.init(
                 messageModel: messageModel,
                 viewModelBuilder: viewModelBuilder,
                 interactionHandler: interactionHandler,
                 sizingCell: sizingCell,
                 cellStyle: baseCellStyle
-            )
+        )
     }
 
     let layoutCache: NSCache<AnyObject, AnyObject>
     let textCellStyle: TextMessageCollectionViewCellStyleProtocol
+    let readStatusStyle: ReadStatusViewStyleProtocol
+    public var readStatusViewModel: ReadStatusViewModel
 
     public final override class func registerCells(_ collectionView: UICollectionView) {
         collectionView.register(TextMessageCollectionViewCell.self, forCellWithReuseIdentifier: "text-message-incoming")
@@ -94,7 +100,9 @@ open class TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
             cell.layoutCache = self.layoutCache
             cell.textMessageViewModel = self.messageViewModel
+            cell.readStatusViewModel = self.readStatusViewModel
             cell.textMessageStyle = self.textCellStyle
+            cell.readStatusStyle = self.readStatusStyle
             additionalConfiguration?()
         }
     }

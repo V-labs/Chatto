@@ -47,27 +47,27 @@ public extension DecoratedMessageModelProtocol {
     var uid: String {
         return self.messageModel.uid
     }
-    
+
     var senderId: String {
         return self.messageModel.senderId
     }
-    
+
     var type: String {
         return self.messageModel.type
     }
-    
+
     var isIncoming: Bool {
         return self.messageModel.isIncoming
     }
-    
+
     var date: Date {
         return self.messageModel.date
     }
-    
+
     var status: MessageStatus {
         return self.messageModel.status
     }
-    
+
     var author: AuthorModelProtocol {
         return self.messageModel.author
     }
@@ -81,7 +81,7 @@ open class MessageModel: MessageModelProtocol {
     open var date: Date
     open var status: MessageStatus
     open var author: AuthorModelProtocol
-    
+
     public init(uid: String, senderId: String, type: String, isIncoming: Bool, date: Date, status: MessageStatus, author: AuthorModelProtocol) {
         self.uid = uid
         self.senderId = senderId

@@ -26,21 +26,24 @@ import Foundation
 import Chatto
 
 open class TextMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>
-: ChatItemPresenterBuilderProtocol where
-    ViewModelBuilderT: ViewModelBuilderProtocol,
-    ViewModelBuilderT.ViewModelT: TextMessageViewModelProtocol,
-    InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
-    InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
+        : ChatItemPresenterBuilderProtocol where
+ViewModelBuilderT: ViewModelBuilderProtocol,
+ViewModelBuilderT.ViewModelT: TextMessageViewModelProtocol,
+InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
+InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
     typealias ViewModelT = ViewModelBuilderT.ViewModelT
     typealias ModelT = ViewModelBuilderT.ModelT
 
     public init(
-        viewModelBuilder: ViewModelBuilderT,
-        interactionHandler: InteractionHandlerT? = nil) {
-            self.viewModelBuilder = viewModelBuilder
-            self.interactionHandler = interactionHandler
+            viewModelBuilder: ViewModelBuilderT,
+            interactionHandler: InteractionHandlerT? = nil,
+            readStatusVieModel: ReadStatusViewModel) {
+        self.viewModelBuilder = viewModelBuilder
+        self.interactionHandler = interactionHandler
+        self.readStatusViewModel = readStatusVieModel
     }
 
+    let readStatusViewModel: ReadStatusViewModel
     let viewModelBuilder: ViewModelBuilderT
     let interactionHandler: InteractionHandlerT?
     let layoutCache = NSCache<AnyObject, AnyObject>()
@@ -48,10 +51,10 @@ open class TextMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>
     lazy var sizingCell: TextMessageCollectionViewCell = {
         var cell: TextMessageCollectionViewCell?
         if Thread.isMainThread {
-            cell = TextMessageCollectionViewCell.sizingCell()
+            cell = TextMessageCollectionViewCell.sizingCell(readStatusViewModel: self.readStatusViewModel)
         } else {
             DispatchQueue.main.sync(execute: {
-                cell =  TextMessageCollectionViewCell.sizingCell()
+                cell = TextMessageCollectionViewCell.sizingCell(readStatusViewModel: self.readStatusViewModel)
             })
         }
 
@@ -60,6 +63,7 @@ open class TextMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>
 
     public lazy var textCellStyle: TextMessageCollectionViewCellStyleProtocol = TextMessageCollectionViewCellDefaultStyle()
     public lazy var baseMessageStyle: BaseMessageCollectionViewCellStyleProtocol = BaseMessageCollectionViewCellDefaultStyle()
+    public lazy var readStatusStyle: ReadStatusViewStyleProtocol = ReadStatusViewDefaultStyle()
 
     open func canHandleChatItem(_ chatItem: ChatItemProtocol) -> Bool {
         return self.viewModelBuilder.canCreateViewModel(fromModel: chatItem)
@@ -67,12 +71,13 @@ open class TextMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>
 
     open func createPresenterWithChatItem(_ chatItem: ChatItemProtocol) -> ChatItemPresenterProtocol {
         return self.createPresenter(withChatItem: chatItem,
-                                    viewModelBuilder: self.viewModelBuilder,
-                                    interactionHandler: self.interactionHandler,
-                                    sizingCell: self.sizingCell,
-                                    baseCellStyle: self.baseMessageStyle,
-                                    textCellStyle: self.textCellStyle,
-                                    layoutCache: self.layoutCache)
+                viewModelBuilder: self.viewModelBuilder,
+                interactionHandler: self.interactionHandler,
+                sizingCell: self.sizingCell,
+                baseCellStyle: self.baseMessageStyle,
+                textCellStyle: self.textCellStyle,
+                layoutCache: self.layoutCache,
+                readStatusStyle: self.readStatusStyle)
     }
 
     open func createPresenter(withChatItem chatItem: ChatItemProtocol,
@@ -81,16 +86,19 @@ open class TextMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>
                               sizingCell: TextMessageCollectionViewCell,
                               baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
                               textCellStyle: TextMessageCollectionViewCellStyleProtocol,
-                              layoutCache: NSCache<AnyObject, AnyObject>) -> TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT> {
+                              layoutCache: NSCache<AnyObject, AnyObject>,
+                              readStatusStyle: ReadStatusViewStyleProtocol) -> TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT> {
         assert(self.canHandleChatItem(chatItem))
         return TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>(
-            messageModel: chatItem as! ModelT,
-            viewModelBuilder: viewModelBuilder,
-            interactionHandler: interactionHandler,
-            sizingCell: sizingCell,
-            baseCellStyle: baseCellStyle,
-            textCellStyle: textCellStyle,
-            layoutCache: layoutCache
+                messageModel: chatItem as! ModelT,
+                viewModelBuilder: viewModelBuilder,
+                interactionHandler: interactionHandler,
+                sizingCell: sizingCell,
+                baseCellStyle: baseCellStyle,
+                textCellStyle: textCellStyle,
+                layoutCache: layoutCache,
+                readStatusStyle: readStatusStyle,
+                readStatusViewModel: readStatusViewModel
         )
     }
 
