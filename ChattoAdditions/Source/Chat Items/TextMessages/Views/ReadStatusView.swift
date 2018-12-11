@@ -80,6 +80,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
     private var checkMarkView: UIImageView {
         if self._checkMarkView == nil {
             self._checkMarkView = UIImageView(frame: .zero)
+            self._checkMarkView?.contentMode = .scaleAspectFit
         }
         if let viewModel = self.readStatusViewModel {
             self._checkMarkView!.image = viewModel.delegate?.getImage(value: viewModel.value)
@@ -238,7 +239,7 @@ private final class ReadStatusLayoutModel {
 
         let textSize = CGSize(width: textSizeWidth, height: self.textSizeThatFitsWidth(maxTextWidth).height)
         self.textFrame = CGRect(x: 0, y: 0, width: textSize.width, height: textSize.height)
-        self.checkFrame = CGRect(x: self.textFrame.width + padding, y: self.textFrame.height / 2 - 4, width: 8, height: 8)
+        self.checkFrame = CGRect(x: self.textFrame.width + padding, y: self.textFrame.height / 2 - 4, width: 14, height: 8)
         self.size = CGSize(width: textSize.width + padding + checkFrame.width + margin, height: max(textSize.height, checkFrame.height))
     }
 

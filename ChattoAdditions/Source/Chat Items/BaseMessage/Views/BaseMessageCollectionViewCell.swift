@@ -239,6 +239,9 @@ BubbleViewType: BackgroundSizingQueryable {
         } else {
             self.failedButton.alpha = 0
         }
+
+        self.readStatusLabel.isHidden = viewModel.isIncoming
+
         self.accessoryTimestampView.attributedText = style.attributedStringForDate(viewModel.date)
         self.updateAvatarView(from: viewModel, with: style)
         self.updateSelectionIndicator(with: style)
@@ -272,9 +275,11 @@ BubbleViewType: BackgroundSizingQueryable {
         self.bubbleView.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
         self.bubbleView.layoutIfNeeded()
 
-        self.readStatusLabel.bma_rect = layout.readStatusLabelFrame
-        self.readStatusLabel.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
-        self.readStatusLabel.layoutIfNeeded()
+        if !self.messageViewModel.isIncoming {
+            self.readStatusLabel.bma_rect = layout.readStatusLabelFrame
+            self.readStatusLabel.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
+            self.readStatusLabel.layoutIfNeeded()
+        }
 
         self.avatarView.bma_rect = layout.avatarViewFrame
         self.selectionIndicator.bma_rect = layout.selectionIndicatorFrame
