@@ -228,7 +228,8 @@ private final class ReadStatusLayoutModel {
     }
 
     func calculateLayout() {
-        let padding: CGFloat = 16.0
+        let padding: CGFloat = 8.0
+        let margin: CGFloat = 16.0
 
         let textHorizontalInset = self.layoutContext.textInsets.bma_horziontalInset
         let maxTextWidth = self.layoutContext.preferredMaxLayoutWidth - textHorizontalInset
@@ -237,8 +238,8 @@ private final class ReadStatusLayoutModel {
 
         let textSize = CGSize(width: textSizeWidth, height: self.textSizeThatFitsWidth(maxTextWidth).height)
         self.textFrame = CGRect(x: 0, y: 0, width: textSize.width, height: textSize.height)
-        self.checkFrame = CGRect(x: self.textFrame.width + padding / 2, y: self.textFrame.height / 2 - 4, width: 8, height: 8)
-        self.size = CGSize(width: textSize.width + padding + checkFrame.width, height: max(textSize.height, checkFrame.height))
+        self.checkFrame = CGRect(x: self.textFrame.width + padding, y: self.textFrame.height / 2 - 4, width: 8, height: 8)
+        self.size = CGSize(width: textSize.width + padding + checkFrame.width + margin, height: max(textSize.height, checkFrame.height))
     }
 
     private func textSizeThatFitsWidth(_ width: CGFloat) -> CGSize {
