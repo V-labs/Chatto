@@ -126,7 +126,9 @@ open class ChatInputBar: ReusableXibView {
     }
 
     open override func layoutSubviews() {
-        self.updateConstraints() // Interface rotation or size class changes will reset constraints as defined in interface builder -> constraintsForVisibleTextView will be activated
+        // Interface rotation or size class changes will reset constraints as defined in interface builder
+        // -> constraintsForVisibleTextView will be activated
+        self.updateConstraints()
         super.layoutSubviews()
     }
 
@@ -195,10 +197,12 @@ open class ChatInputBar: ReusableXibView {
 
     public func setIsTyping(attributedString: NSAttributedString) {
         self.isTypingLabel.attributedText = attributedString
+        self.isTypingLabel.isHidden = attributedString.string == ""
     }
 
     public func setIsTyping(string: String) {
         self.isTypingLabel.text = string
+        self.isTypingLabel.isHidden = string == ""
     }
 }
 
