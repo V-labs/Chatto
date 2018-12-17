@@ -26,46 +26,47 @@ import Foundation
 import Chatto
 
 open class PhotoMessagePresenterBuilder<ViewModelBuilderT, InteractionHandlerT>: ChatItemPresenterBuilderProtocol where
-    ViewModelBuilderT: ViewModelBuilderProtocol,
-    ViewModelBuilderT.ViewModelT: PhotoMessageViewModelProtocol,
-    InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
+ViewModelBuilderT: ViewModelBuilderProtocol,
+ViewModelBuilderT.ViewModelT: PhotoMessageViewModelProtocol,
+InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
 InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
     public typealias ModelT = ViewModelBuilderT.ModelT
     public typealias ViewModelT = ViewModelBuilderT.ViewModelT
-    
+
     public init(
-        viewModelBuilder: ViewModelBuilderT,
-        interactionHandler: InteractionHandlerT?,
-        readStatusViewModel: ReadStatusViewModel) {
+            viewModelBuilder: ViewModelBuilderT,
+            interactionHandler: InteractionHandlerT?,
+            readStatusViewModel: ReadStatusViewModel) {
         self.viewModelBuilder = viewModelBuilder
         self.interactionHandler = interactionHandler
         self.readStatusViewModel = readStatusViewModel
     }
-    
+
     public let viewModelBuilder: ViewModelBuilderT
     public let interactionHandler: InteractionHandlerT?
     public let sizingCell: PhotoMessageCollectionViewCell = PhotoMessageCollectionViewCell.sizingCell()
     public let readStatusViewModel: ReadStatusViewModel
     public lazy var photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol = PhotoMessageCollectionViewCellDefaultStyle()
     public lazy var baseCellStyle: BaseMessageCollectionViewCellStyleProtocol = BaseMessageCollectionViewCellDefaultStyle()
-    
+
     open func canHandleChatItem(_ chatItem: ChatItemProtocol) -> Bool {
         return self.viewModelBuilder.canCreateViewModel(fromModel: chatItem)
     }
-    
+
     open func createPresenterWithChatItem(_ chatItem: ChatItemProtocol) -> ChatItemPresenterProtocol {
         assert(self.canHandleChatItem(chatItem))
         return PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>(
-            messageModel: chatItem as! ModelT,
-            viewModelBuilder: self.viewModelBuilder,
-            interactionHandler: self.interactionHandler,
-            sizingCell: sizingCell,
-            baseCellStyle: self.baseCellStyle,
-            photoCellStyle: self.photoCellStyle,
-                readStatusViewModel: self.readStatusViewModel
+                messageModel: chatItem as! ModelT,
+                viewModelBuilder: self.viewModelBuilder,
+                interactionHandler: self.interactionHandler,
+                sizingCell: sizingCell,
+                baseCellStyle: self.baseCellStyle,
+                photoCellStyle: self.photoCellStyle,
+                readStatusViewModel: self.readStatusViewModel,
+                readStatusStyle: ReadStatusViewDefaultStyle()
         )
     }
-    
+
     open var presenterType: ChatItemPresenterProtocol.Type {
         return PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>.self
     }

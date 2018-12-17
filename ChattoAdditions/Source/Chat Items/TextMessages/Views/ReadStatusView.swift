@@ -40,13 +40,17 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
 
     public var style: ReadStatusViewStyleProtocol! {
         didSet {
-            self.updateViews()
+            if let _ = self.style, let _ = self.readStatusViewModel {
+                self.updateViews()
+            }
         }
     }
 
     public var readStatusViewModel: ReadStatusViewModelProtocol! {
         didSet {
-            self.updateViews()
+            if let _ = self.style, let _ = self.readStatusViewModel {
+                self.updateViews()
+            }
         }
     }
 
@@ -192,7 +196,9 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
         let layoutModel = ReadStatusLayoutModel(layoutContext: layoutContext)
         layoutModel.calculateLayout()
 
-        self.layoutCache.setObject(layoutModel, forKey: layoutContext.hashValue as AnyObject)
+        if self.layoutCache != nil {
+            self.layoutCache.setObject(layoutModel, forKey: layoutContext.hashValue as AnyObject)
+        }
         return layoutModel
     }
 

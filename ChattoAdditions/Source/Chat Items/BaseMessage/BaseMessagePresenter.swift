@@ -60,12 +60,16 @@ BubbleViewT: BackgroundSizingQueryable {
             viewModelBuilder: ViewModelBuilderT,
             interactionHandler: InteractionHandlerT?,
             sizingCell: BaseMessageCollectionViewCell<BubbleViewT>,
-            cellStyle: BaseMessageCollectionViewCellStyleProtocol) {
+            cellStyle: BaseMessageCollectionViewCellStyleProtocol,
+            readStatusViewModel: ReadStatusViewModel,
+            readStatusStyle: ReadStatusViewStyleProtocol) {
         self.messageModel = messageModel
         self.sizingCell = sizingCell
         self.viewModelBuilder = viewModelBuilder
         self.cellStyle = cellStyle
         self.interactionHandler = interactionHandler
+        self.readStatusViewModel = readStatusViewModel
+        self.readStatusStyle = readStatusStyle
     }
 
     public let messageModel: ModelT
@@ -73,6 +77,8 @@ BubbleViewT: BackgroundSizingQueryable {
     public let viewModelBuilder: ViewModelBuilderT
     public let interactionHandler: InteractionHandlerT?
     public let cellStyle: BaseMessageCollectionViewCellStyleProtocol
+    public var readStatusViewModel: ReadStatusViewModel
+    public let readStatusStyle: ReadStatusViewStyleProtocol
 
     public private(set) final lazy var messageViewModel: ViewModelT = {
         return self.createViewModel()
@@ -94,6 +100,7 @@ BubbleViewT: BackgroundSizingQueryable {
         }
 
         self.decorationAttributes = decorationAttributes
+        cell.readStatusViewModel = self.readStatusViewModel
         self.configureCell(cell, decorationAttributes: decorationAttributes, animated: false, additionalConfiguration: nil)
     }
 

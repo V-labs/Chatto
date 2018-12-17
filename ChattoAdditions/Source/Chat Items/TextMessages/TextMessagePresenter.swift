@@ -45,21 +45,19 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
             readStatusViewModel: ReadStatusViewModel) {
         self.layoutCache = layoutCache
         self.textCellStyle = textCellStyle
-        self.readStatusStyle = readStatusStyle
-        self.readStatusViewModel = readStatusViewModel
         super.init(
                 messageModel: messageModel,
                 viewModelBuilder: viewModelBuilder,
                 interactionHandler: interactionHandler,
                 sizingCell: sizingCell,
-                cellStyle: baseCellStyle
+                cellStyle: baseCellStyle,
+                readStatusViewModel: readStatusViewModel,
+                readStatusStyle: readStatusStyle
         )
     }
 
     let layoutCache: NSCache<AnyObject, AnyObject>
     let textCellStyle: TextMessageCollectionViewCellStyleProtocol
-    let readStatusStyle: ReadStatusViewStyleProtocol
-    public var readStatusViewModel: ReadStatusViewModel
 
     public final override class func registerCells(_ collectionView: UICollectionView) {
         collectionView.register(TextMessageCollectionViewCell.self, forCellWithReuseIdentifier: "text-message-incoming")
