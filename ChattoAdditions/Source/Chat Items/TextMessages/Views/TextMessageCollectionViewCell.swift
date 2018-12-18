@@ -69,12 +69,6 @@ public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell<
         }
     }
 
-    public var readStatusStyle: ReadStatusViewStyleProtocol! {
-        didSet {
-            self.readStatusLabel.style = self.readStatusStyle
-        }
-    }
-
     override public var isSelected: Bool {
         didSet {
             self.bubbleView.selected = self.isSelected

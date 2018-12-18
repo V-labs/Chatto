@@ -99,15 +99,26 @@ BubbleViewType: BackgroundSizingQueryable {
 
     open var messageViewModel: MessageViewModelProtocol! {
         didSet {
-            self.updateViews()
+            if let _ = self.readStatusViewModel {
+                self.updateViews()
+            }
         }
     }
 
     public var baseStyle: BaseMessageCollectionViewCellStyleProtocol! {
         didSet {
-            self.updateViews()
+            if let _ = self.readStatusViewModel {
+                self.updateViews()
+            }
         }
     }
+
+    public var readStatusStyle: ReadStatusViewStyleProtocol! {
+        didSet {
+            self.readStatusLabel.style = self.readStatusStyle
+        }
+    }
+
     private var shouldShowFailedIcon: Bool {
         return self.messageViewModel?.decorationAttributes.canShowFailedIcon == true && self.messageViewModel?.isShowingFailedIcon == true
     }
