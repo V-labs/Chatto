@@ -479,7 +479,6 @@ private struct Layout {
 
         let preferredWidthForBubble = (containerWidth * parameters.maxContainerWidthPercentageForBubbleView).bma_round()
         let bubbleSize = bubbleView.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
-//        let readStatusLabelSize = CGSize(width: 100, height: 35)
         let readStatusLabelSize = readStatusLabel.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
         let containerRect = CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: bubbleSize.height + readStatusLabelSize.height))
 
@@ -490,7 +489,7 @@ private struct Layout {
         )
 
         self.failedButtonFrame = failedButtonSize.bma_rect(
-                inContainer: containerRect,
+                inContainer: CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: self.bubbleViewFrame.height)),
                 xAlignament: .center,
                 yAlignment: .center
         )
@@ -557,8 +556,7 @@ private struct Layout {
         }
 
         self.size = containerRect.size
-        self.size.height += self.readStatusLabelFrame.size.height
-        print("readStatusFrame: \(self.readStatusLabelFrame)")
+        self.size.height += self.readStatusLabelFrame.size.height / 2
         self.preferredMaxWidthForBubble = preferredWidthForBubble
     }
 }
