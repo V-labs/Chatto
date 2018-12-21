@@ -234,6 +234,7 @@ extension ChatInputBar {
         self.textView.layer.borderColor = appearance.textInputAppearance.borderColor.cgColor
         self.textView.layer.borderWidth = appearance.textInputAppearance.borderWidth
         self.textView.accessibilityIdentifier = appearance.textInputAppearance.accessibilityIdentifier
+        self.disclaimerLabel.text = appearance.tabBarAppearance.disclaimerText
         self.tabBarInterItemSpacing = appearance.tabBarAppearance.interItemSpacing
         self.tabBarContentInsets = appearance.tabBarAppearance.contentInsets
         self.sendButton.contentEdgeInsets = appearance.sendButtonAppearance.insets

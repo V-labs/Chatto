@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AE324BA21CBD18D00A12253 /* ReadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */; };
+		0AE324BB21CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */; };
 		0B44651620347C11001ED5F1 /* DeviceImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */; };
 		3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */; };
 		3BF6E1788C11E865F1B58684 /* ReadStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */; };
@@ -125,6 +127,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModel.swift; sourceTree = "<group>"; };
+		0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusViewDefaultStyle.swift; sourceTree = "<group>"; };
 		0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceImagePicker.swift; sourceTree = "<group>"; };
 		3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCollectionViewCellDefaultStyle.swift; sourceTree = "<group>"; };
 		3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusView.swift; sourceTree = "<group>"; };
@@ -259,12 +263,10 @@
 			isa = PBXGroup;
 			children = (
 				55ABA5531FC739C300923302 /* Alignment.swift */,
-				C38658B11BFE55620012F181 /* AnimationUtils.swift */,
 				55ABA55C1FC742A600923302 /* CGFloat+Additions.swift */,
 				55ABA5621FC7444700923302 /* CGPoint+Additions.swift */,
 				55ABA5661FC748B600923302 /* CGRect+Additions.swift */,
 				55ABA5551FC73A3C00923302 /* CGSize+Additions.swift */,
-				C3C0CC1B1BFE496A0052747C /* Observable.swift */,
 				55127637218C9FF800731463 /* ScreenMetric.swift */,
 				55ABA56E1FC74D8F00923302 /* UIColor+Additions.swift */,
 				55ABA56A1FC74CB400923302 /* UIEdgeInsets+Additions.swift */,
@@ -331,9 +333,6 @@
 			children = (
 				A511490D1F21276E0015FF79 /* Localizable.strings */,
 				A511490E1F21276E0015FF79 /* UIAlertController+Extensions.swift */,
-				C3C0CBD51BFE496A0052747C /* Chat Items */,
-				C3C0CC031BFE496A0052747C /* Input */,
-				C3C0CC1D1BFE496A0052747C /* UI Components */,
 				C38658B11BFE55620012F181 /* AnimationUtils.swift */,
 				C3C0CC961BFE4A2A0052747C /* ChattoAdditions.h */,
 				C3C0CC021BFE496A0052747C /* Info.plist */,
@@ -342,7 +341,6 @@
 				C3C0CC031BFE496A0052747C /* Input */,
 				C3C0CC1D1BFE496A0052747C /* UI Components */,
 				C3C0CC1B1BFE496A0052747C /* Observable.swift */,
-				C3A646FE1BFE8D40001BC98B,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -421,6 +419,8 @@
 		C3C0CBF21BFE496A0052747C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */,
+				0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */,
 				C3C0CBF31BFE496A0052747C /* TextBubbleView.swift */,
 				C3C0CBF51BFE496A0052747C /* TextMessageCollectionViewCell.swift */,
 				C3C0CBF61BFE496A0052747C /* TextMessageCollectionViewCellDefaultStyle.swift */,
@@ -500,13 +500,10 @@
 		C3C0CC6E1BFE49700052747C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C3C0CC6F1BFE49700052747C /* Chat Items */,
-				C3C0CC761BFE49700052747C /* Input */,
 				C3C0CC751BFE49700052747C /* Info.plist */,
 				55ABA5751FC74F8D00923302 /* Common */,
 				C3C0CC6F1BFE49700052747C /* Chat Items */,
 				C3C0CC761BFE49700052747C /* Input */,
-				C3C0CC7F1BFE49700052747C,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -560,9 +557,6 @@
 			isa = PBXGroup;
 			children = (
 				0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */,
-				C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */,
-				C3C0CC0D1BFE496A0052747C /* LiveCameraCell.swift */,
-				C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */,
 				C3C0CC101BFE496A0052747C /* PhotosInputCameraPicker.swift */,
 				CD240FA7D32306EC2284C287 /* ImagePicker.swift */,
 			);
@@ -729,7 +723,6 @@
 				55ABA5631FC7444700923302 /* CGPoint+Additions.swift in Sources */,
 				C3C9BC8F1D11540D00F3A54E /* TabInputButton.swift in Sources */,
 				A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */,
-				C3C0CC311BFE496A0052747C,
 				C3C0CC3B1BFE496A0052747C /* PhotoMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				C38658B21BFE55620012F181 /* AnimationUtils.swift in Sources */,
 				C3C0CC381BFE496A0052747C /* PhotoBubbleView.swift in Sources */,
@@ -757,6 +750,7 @@
 				C3C0CC341BFE496A0052747C /* PhotoMessageModel.swift in Sources */,
 				55ABA5561FC73A3C00923302 /* CGSize+Additions.swift in Sources */,
 				55127638218C9FF900731463 /* ScreenMetric.swift in Sources */,
+				0AE324BB21CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift in Sources */,
 				A52037171EB3A88E0062F983 /* AuthorViewModel.swift in Sources */,
 				C3C0CC5E1BFE496A0052747C /* PhotosInputView.swift in Sources */,
 				CDC60FFD1FD7259200C2588E /* PhotosInputPlaceholderCell.swift in Sources */,
@@ -794,6 +788,7 @@
 				0B44651620347C11001ED5F1 /* DeviceImagePicker.swift in Sources */,
 				3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				CD24064D62EE4023542B905D /* ImagePicker.swift in Sources */,
+				0AE324BA21CBD18D00A12253 /* ReadStatusViewModel.swift in Sources */,
 				3BF6E1788C11E865F1B58684 /* ReadStatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

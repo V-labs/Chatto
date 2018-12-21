@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -17,24 +17,24 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChatInputBar" customModule="ChattoAdditions" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="257"/>
+            <rect key="frame" x="0.0" y="0.0" width="506" height="257"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fsh-hH-hKG" userLabel="TextView" customClass="ExpandableTextView" customModule="ChattoAdditions" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="48" width="600" height="165"/>
+                    <rect key="frame" x="0.0" y="60" width="506" height="153"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkz-tq-X6j" userLabel="Tab selector container">
-                    <rect key="frame" x="0.0" y="213" width="600" height="44"/>
+                    <rect key="frame" x="0.0" y="213" width="506" height="44"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNX-pj-5AB" customClass="HorizontalStackScrollView" customModule="ChattoAdditions" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="506" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="412" height="44"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE9-hU-Ci1">
-                            <rect key="frame" x="506" y="0.0" width="94" height="44"/>
+                            <rect key="frame" x="412" y="0.0" width="94" height="44"/>
                             <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -60,8 +60,8 @@
                         </mask>
                     </variation>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disclaimer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRQ-kH-fFt">
-                    <rect key="frame" x="42" y="22" width="553" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attention, le secret médical vous oblige à ne jamais donner le nom du patient dans vos échanges." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRQ-kH-fFt">
+                    <rect key="frame" x="42" y="21" width="459" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="250" constant="29.5" id="64i-yc-1sH"/>
                     </constraints>
@@ -70,21 +70,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_disclaimer" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-7y-I6A">
-                    <rect key="frame" x="10" y="18.5" width="22" height="22"/>
+                    <rect key="frame" x="10" y="24" width="22" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="cpD-gc-4iA"/>
                         <constraint firstAttribute="width" constant="22" id="tzj-AG-0cg"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-fp-7di" userLabel="Top border">
-                    <rect key="frame" x="0.0" y="47" width="600" height="1"/>
+                    <rect key="frame" x="0.0" y="59" width="506" height="1"/>
                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" identifier="top-border-height" id="IIv-qg-Tlp"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Plusieurs personnes sont en train d'écrire ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDb-2Y-0Y4">
-                    <rect key="frame" x="10" y="4" width="585" height="12.5"/>
+                    <rect key="frame" x="10" y="4" width="491" height="12"/>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
                     <color key="textColor" red="0.47843137254901957" green="0.47843137254901957" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -92,6 +92,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="QRQ-kH-fFt" firstAttribute="top" secondItem="iDb-2Y-0Y4" secondAttribute="bottom" constant="5" id="040-Ri-C4Y"/>
                 <constraint firstItem="fsh-hH-hKG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0hb-TC-77u"/>
                 <constraint firstAttribute="trailing" secondItem="QRQ-kH-fFt" secondAttribute="trailing" constant="5" id="1Ab-A1-4wt"/>
                 <constraint firstItem="hkz-tq-X6j" firstAttribute="top" secondItem="b1n-fp-7di" secondAttribute="bottom" id="1TH-Zu-04X"/>
@@ -104,7 +105,6 @@
                 <constraint firstItem="5Ke-7y-I6A" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Mza-Hv-gI6"/>
                 <constraint firstItem="b1n-fp-7di" firstAttribute="top" secondItem="QRQ-kH-fFt" secondAttribute="bottom" constant="10" id="Nzw-8I-0Fu"/>
                 <constraint firstItem="iDb-2Y-0Y4" firstAttribute="leading" secondItem="5Ke-7y-I6A" secondAttribute="leading" id="Pye-u3-TQh"/>
-                <constraint firstItem="5Ke-7y-I6A" firstAttribute="top" secondItem="iDb-2Y-0Y4" secondAttribute="bottom" constant="2" id="SHA-eX-Rqd"/>
                 <constraint firstAttribute="trailing" secondItem="hkz-tq-X6j" secondAttribute="trailing" id="V4u-Kv-Ub2"/>
                 <constraint firstItem="5Ke-7y-I6A" firstAttribute="centerY" secondItem="QRQ-kH-fFt" secondAttribute="centerY" id="Znp-5s-kS3"/>
                 <constraint firstItem="hkz-tq-X6j" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eGb-Fb-2Of"/>
@@ -135,7 +135,7 @@
                 <outletCollection property="constraintsForHiddenTextView" destination="1TH-Zu-04X" collectionClass="NSMutableArray" id="jra-mi-fNL"/>
                 <outletCollection property="constraintsForVisibleTextView" destination="4Vl-vV-gaa" collectionClass="NSMutableArray" id="rMP-c3-dWy"/>
             </connections>
-            <point key="canvasLocation" x="-150.40000000000001" y="-307.1964017991005"/>
+            <point key="canvasLocation" x="-240" y="-308.125"/>
         </view>
     </objects>
     <resources>
