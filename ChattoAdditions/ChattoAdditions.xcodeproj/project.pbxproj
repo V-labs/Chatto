@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AE324BA21CBD18D00A12253 /* ReadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */; };
+		0A31B5CF21DD0C8200428DEE /* ReadStatusModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5CE21DD0C8200428DEE /* ReadStatusModelProtocol.swift */; };
+		0A31B5D121DD0CC400428DEE /* ReadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */; };
+		0A31B5D321DD0D2200428DEE /* ReadStatusViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */; };
 		0AE324BB21CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */; };
 		0B44651620347C11001ED5F1 /* DeviceImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */; };
 		3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */; };
@@ -127,7 +129,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModel.swift; sourceTree = "<group>"; };
+		0A31B5CE21DD0C8200428DEE /* ReadStatusModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusModelProtocol.swift; sourceTree = "<group>"; };
+		0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModel.swift; sourceTree = "<group>"; };
+		0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModelProtocol.swift; sourceTree = "<group>"; };
 		0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusViewDefaultStyle.swift; sourceTree = "<group>"; };
 		0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceImagePicker.swift; sourceTree = "<group>"; };
 		3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCollectionViewCellDefaultStyle.swift; sourceTree = "<group>"; };
@@ -366,6 +370,10 @@
 				C3C0CBD81BFE496A0052747C /* BaseMessageModel.swift */,
 				C3C0CBD91BFE496A0052747C /* BaseMessagePresenter.swift */,
 				C3C0CBDA1BFE496A0052747C /* BaseMessageViewModel.swift */,
+				0A31B5CE21DD0C8200428DEE /* ReadStatusModelProtocol.swift */,
+				0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */,
+				0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */,
+				3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */,
 			);
 			path = BaseMessage;
 			sourceTree = "<group>";
@@ -420,11 +428,9 @@
 			isa = PBXGroup;
 			children = (
 				0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */,
-				0AE324B821CBD18D00A12253 /* ReadStatusViewModel.swift */,
 				C3C0CBF31BFE496A0052747C /* TextBubbleView.swift */,
 				C3C0CBF51BFE496A0052747C /* TextMessageCollectionViewCell.swift */,
 				C3C0CBF61BFE496A0052747C /* TextMessageCollectionViewCellDefaultStyle.swift */,
-				3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -726,15 +732,18 @@
 				C3C0CC3B1BFE496A0052747C /* PhotoMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				C38658B21BFE55620012F181 /* AnimationUtils.swift in Sources */,
 				C3C0CC381BFE496A0052747C /* PhotoBubbleView.swift in Sources */,
+				0A31B5CF21DD0C8200428DEE /* ReadStatusModelProtocol.swift in Sources */,
 				C3C0CC3D1BFE496A0052747C /* TextMessagePresenter.swift in Sources */,
 				C3C0CC3F1BFE496A0052747C /* TextMessageViewModel.swift in Sources */,
 				C3C0CC571BFE496A0052747C /* LiveCameraCell.swift in Sources */,
 				C3C0CC591BFE496A0052747C /* PhotosChatInputItem.swift in Sources */,
 				C3C0CC3A1BFE496A0052747C /* PhotoMessageCollectionViewCell.swift in Sources */,
+				0A31B5D321DD0D2200428DEE /* ReadStatusViewModelProtocol.swift in Sources */,
 				A52037161EB3A88E0062F983 /* AuthorModelProtocol.swift in Sources */,
 				C3C0CC691BFE496A0052747C /* CircleProgressIndicatorView.m in Sources */,
 				55ABA5671FC748B600923302 /* CGRect+Additions.swift in Sources */,
 				C3C0CC5D1BFE496A0052747C /* PhotosInputWithPlaceholdersDataProvider.swift in Sources */,
+				0A31B5D121DD0CC400428DEE /* ReadStatusViewModel.swift in Sources */,
 				C3C0CC5C1BFE496A0052747C /* PhotosInputCellProvider.swift in Sources */,
 				C3C0CC3C1BFE496A0052747C /* TextMessageModel.swift in Sources */,
 				C3C0CC2A1BFE496A0052747C /* BaseMessageModel.swift in Sources */,
@@ -788,7 +797,6 @@
 				0B44651620347C11001ED5F1 /* DeviceImagePicker.swift in Sources */,
 				3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */,
 				CD24064D62EE4023542B905D /* ImagePicker.swift in Sources */,
-				0AE324BA21CBD18D00A12253 /* ReadStatusViewModel.swift in Sources */,
 				3BF6E1788C11E865F1B58684 /* ReadStatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

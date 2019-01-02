@@ -37,6 +37,7 @@ public protocol MessageModelProtocol: ChatItemProtocol {
     var date: Date { get }
     var status: MessageStatus { get }
     var author: AuthorModelProtocol { get }
+    var readStatusModel: ReadStatusModelProtocol { get }
 }
 
 public protocol DecoratedMessageModelProtocol: MessageModelProtocol {
@@ -71,6 +72,10 @@ public extension DecoratedMessageModelProtocol {
     var author: AuthorModelProtocol {
         return self.messageModel.author
     }
+    
+    var readStatus: ReadStatusModelProtocol {
+        return self.messageModel.readStatusModel
+    }
 }
 
 open class MessageModel: MessageModelProtocol {
@@ -81,8 +86,9 @@ open class MessageModel: MessageModelProtocol {
     open var date: Date
     open var status: MessageStatus
     open var author: AuthorModelProtocol
+    open var readStatusModel: ReadStatusModelProtocol
 
-    public init(uid: String, senderId: String, type: String, isIncoming: Bool, date: Date, status: MessageStatus, author: AuthorModelProtocol) {
+    public init(uid: String, senderId: String, type: String, isIncoming: Bool, date: Date, status: MessageStatus, author: AuthorModelProtocol, readStatusModel: ReadStatusModelProtocol) {
         self.uid = uid
         self.senderId = senderId
         self.type = type
@@ -90,5 +96,6 @@ open class MessageModel: MessageModelProtocol {
         self.date = date
         self.status = status
         self.author = author
+        self.readStatusModel = readStatusModel
     }
 }

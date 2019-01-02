@@ -41,8 +41,7 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
             baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
             textCellStyle: TextMessageCollectionViewCellStyleProtocol,
             layoutCache: NSCache<AnyObject, AnyObject>,
-            readStatusStyle: ReadStatusViewStyleProtocol,
-            readStatusViewModel: ReadStatusViewModel) {
+            readStatusStyle: ReadStatusViewStyleProtocol) {
         self.layoutCache = layoutCache
         self.textCellStyle = textCellStyle
         super.init(
@@ -51,7 +50,6 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
                 interactionHandler: interactionHandler,
                 sizingCell: sizingCell,
                 cellStyle: baseCellStyle,
-                readStatusViewModel: readStatusViewModel,
                 readStatusStyle: readStatusStyle
         )
     }
@@ -98,9 +96,7 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
             cell.layoutCache = self.layoutCache
             cell.textMessageViewModel = self.messageViewModel
-            cell.readStatusViewModel = self.readStatusViewModel
             cell.textMessageStyle = self.textCellStyle
-            cell.readStatusStyle = self.readStatusStyle
             additionalConfiguration?()
         }
     }

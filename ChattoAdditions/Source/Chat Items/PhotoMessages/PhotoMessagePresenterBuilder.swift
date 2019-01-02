@@ -35,17 +35,14 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
 
     public init(
             viewModelBuilder: ViewModelBuilderT,
-            interactionHandler: InteractionHandlerT?,
-            readStatusViewModel: ReadStatusViewModel) {
+            interactionHandler: InteractionHandlerT?) {
         self.viewModelBuilder = viewModelBuilder
         self.interactionHandler = interactionHandler
-        self.readStatusViewModel = readStatusViewModel
     }
 
     public let viewModelBuilder: ViewModelBuilderT
     public let interactionHandler: InteractionHandlerT?
     public let sizingCell: PhotoMessageCollectionViewCell = PhotoMessageCollectionViewCell.sizingCell()
-    public let readStatusViewModel: ReadStatusViewModel
     public lazy var photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol = PhotoMessageCollectionViewCellDefaultStyle()
     public lazy var baseCellStyle: BaseMessageCollectionViewCellStyleProtocol = BaseMessageCollectionViewCellDefaultStyle()
 
@@ -62,7 +59,6 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
                 sizingCell: sizingCell,
                 baseCellStyle: self.baseCellStyle,
                 photoCellStyle: self.photoCellStyle,
-                readStatusViewModel: self.readStatusViewModel,
                 readStatusStyle: ReadStatusViewDefaultStyle()
         )
     }

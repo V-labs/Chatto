@@ -28,10 +28,9 @@ public typealias TextMessageCollectionViewCellStyleProtocol = TextBubbleViewStyl
 
 public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell<TextBubbleView> {
 
-    public static func sizingCell(readStatusViewModel: ReadStatusViewModel) -> TextMessageCollectionViewCell {
+    public static func sizingCell() -> TextMessageCollectionViewCell {
         let cell = TextMessageCollectionViewCell(frame: CGRect.zero)
         cell.viewContext = .sizing
-        cell.readStatusViewModel = readStatusViewModel
         return cell
     }
 
@@ -78,7 +77,7 @@ public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell<
     public var layoutCache: NSCache<AnyObject, AnyObject>! {
         didSet {
             self.bubbleView.layoutCache = self.layoutCache
-            self.readStatusLabel.layoutCache = self.layoutCache
+            self.readStatusView.layoutCache = self.layoutCache
         }
     }
 }

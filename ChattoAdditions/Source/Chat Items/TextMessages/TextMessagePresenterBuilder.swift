@@ -36,14 +36,11 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
 
     public init(
             viewModelBuilder: ViewModelBuilderT,
-            interactionHandler: InteractionHandlerT? = nil,
-            readStatusVieModel: ReadStatusViewModel) {
+            interactionHandler: InteractionHandlerT? = nil) {
         self.viewModelBuilder = viewModelBuilder
         self.interactionHandler = interactionHandler
-        self.readStatusViewModel = readStatusVieModel
     }
 
-    let readStatusViewModel: ReadStatusViewModel
     let viewModelBuilder: ViewModelBuilderT
     let interactionHandler: InteractionHandlerT?
     let layoutCache = NSCache<AnyObject, AnyObject>()
@@ -51,10 +48,10 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
     lazy var sizingCell: TextMessageCollectionViewCell = {
         var cell: TextMessageCollectionViewCell?
         if Thread.isMainThread {
-            cell = TextMessageCollectionViewCell.sizingCell(readStatusViewModel: self.readStatusViewModel)
+            cell = TextMessageCollectionViewCell.sizingCell()
         } else {
             DispatchQueue.main.sync(execute: {
-                cell = TextMessageCollectionViewCell.sizingCell(readStatusViewModel: self.readStatusViewModel)
+                cell = TextMessageCollectionViewCell.sizingCell()
             })
         }
 
@@ -97,8 +94,7 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
                 baseCellStyle: baseCellStyle,
                 textCellStyle: textCellStyle,
                 layoutCache: layoutCache,
-                readStatusStyle: readStatusStyle,
-                readStatusViewModel: readStatusViewModel
+                readStatusStyle: readStatusStyle
         )
     }
 

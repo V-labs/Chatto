@@ -31,6 +31,11 @@ public protocol TextMessageViewModelProtocol: DecoratedMessageViewModelProtocol 
 }
 
 open class TextMessageViewModel<TextMessageModelT: TextMessageModelProtocol>: TextMessageViewModelProtocol {
+    
+    public var readStatusViewModel: ReadStatusViewModelProtocol {
+        return self.messageViewModel.readStatusViewModel
+    }
+    
     open var text: String {
         return self.textMessage.text
     }

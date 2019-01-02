@@ -53,6 +53,7 @@ public protocol MessageViewModelProtocol: class { // why class? https://gist.git
     var status: MessageViewModelStatus { get }
     var avatarImage: Observable<UIImage?> { set get }
     var authorViewModel: AuthorViewModelProtocol { get }
+    var readStatusViewModel: ReadStatusViewModelProtocol { get }
     func willBeShown() // Optional
     func wasHidden() // Optional
 }
@@ -116,6 +117,8 @@ extension DecoratedMessageViewModelProtocol {
 }
 
 open class MessageViewModel: MessageViewModelProtocol {
+    open var readStatusViewModel: ReadStatusViewModelProtocol
+    
     open var isIncoming: Bool {
         return self.messageModel.isIncoming
     }
@@ -140,7 +143,8 @@ open class MessageViewModel: MessageViewModelProtocol {
                 messageModel: MessageModelProtocol,
                 avatarImage: UIImage?,
                 decorationAttributes: BaseMessageDecorationAttributes,
-                authorViewModel: AuthorViewModelProtocol
+                authorViewModel: AuthorViewModelProtocol,
+                readStatusViewModel: ReadStatusViewModelProtocol
     ) {
         self.dateFormatter = dateFormatter
         self.showsTail = showsTail
@@ -148,6 +152,7 @@ open class MessageViewModel: MessageViewModelProtocol {
         self.avatarImage = Observable<UIImage?>(avatarImage)
         self.decorationAttributes = decorationAttributes
         self.authorViewModel = authorViewModel
+        self.readStatusViewModel = readStatusViewModel
     }
 
     open var isShowingFailedIcon: Bool {
@@ -179,6 +184,7 @@ public class MessageViewModelDefaultBuilder {
                 messageModel: message,
                 avatarImage: nil,
                 decorationAttributes: BaseMessageDecorationAttributes(),
-                authorViewModel: AuthorViewModel(author: message.author) as! AuthorViewModelProtocol)
+                authorViewModel: AuthorViewModel(author: message.author) as! AuthorViewModelProtocol,
+                readStatusViewModel: ReadStatusViewModel(model: message.readStatusModel) as! ReadStatusViewModelProtocol)
     }
 }

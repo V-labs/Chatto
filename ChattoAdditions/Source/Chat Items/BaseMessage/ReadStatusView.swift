@@ -46,7 +46,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
         }
     }
 
-    public var readStatusViewModel: ReadStatusViewModelProtocol! {
+    public var readStatusViewModel: ReadStatusViewModelProtocol? {
         didSet {
             if let _ = self.style, let _ = self.readStatusViewModel {
                 self.updateViews()
@@ -75,7 +75,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             self._label = UILabel(frame: .zero)
         }
         if let viewModel = self.readStatusViewModel {
-            self._label!.text = viewModel.delegate?.getText(value: viewModel.value)
+            self._label!.text = viewModel.label
         }
         return self._label!
     }
@@ -87,7 +87,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             self._checkMarkView?.contentMode = .scaleAspectFit
         }
         if let viewModel = self.readStatusViewModel {
-            self._checkMarkView!.image = viewModel.delegate?.getImage(value: viewModel.value)
+            self._checkMarkView!.image = viewModel.icon
         }
         return self._checkMarkView!
     }
@@ -148,13 +148,13 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
             needsToUpdateText = true
         }
 
-        let text = self.readStatusViewModel.delegate?.getText(value: self.readStatusViewModel.value)
+        let text = self.readStatusViewModel?.label ?? ""
         if text != self.label.text {
             self.label.text = text
             needsToUpdateText = true
         }
 
-        let image = self.readStatusViewModel.delegate?.getImage(value: self.readStatusViewModel.value)
+        let image = self.readStatusViewModel?.icon ?? UIImage()
         if image != self.checkMarkView.image {
             self.checkMarkView.image = image
             needsToUpdateText = true
@@ -183,7 +183,7 @@ public final class ReadStatusView: UIView, MaximumLayoutWidthSpecificable, Backg
 
     private func calculateReadStatusLayout(preferredMaxLayoutWidth: CGFloat) -> ReadStatusLayoutModel {
         let layoutContext = ReadStatusLayoutModel.LayoutContext(
-                text: self.readStatusViewModel.delegate?.getText(value: self.readStatusViewModel.value) ?? "",
+                text: self.readStatusViewModel?.label ?? "",
                 font: self.style.font,
                 textInsets: self.style.textInsets,
                 preferredMaxLayoutWidth: preferredMaxLayoutWidth

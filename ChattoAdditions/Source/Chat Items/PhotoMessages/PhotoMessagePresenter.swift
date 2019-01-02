@@ -42,7 +42,6 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
             sizingCell: PhotoMessageCollectionViewCell,
             baseCellStyle: BaseMessageCollectionViewCellStyleProtocol,
             photoCellStyle: PhotoMessageCollectionViewCellStyleProtocol,
-            readStatusViewModel: ReadStatusViewModel,
             readStatusStyle: ReadStatusViewStyleProtocol) {
         self.photoCellStyle = photoCellStyle
         super.init(
@@ -51,7 +50,6 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
                 interactionHandler: interactionHandler,
                 sizingCell: sizingCell,
                 cellStyle: baseCellStyle,
-                readStatusViewModel: readStatusViewModel,
                 readStatusStyle: readStatusStyle
         )
     }
@@ -97,8 +95,6 @@ InteractionHandlerT.ViewModelT == ViewModelBuilderT.ViewModelT {
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
             cell.photoMessageViewModel = self.messageViewModel
             cell.photoMessageStyle = self.photoCellStyle
-            cell.readStatusViewModel = self.readStatusViewModel
-            cell.readStatusStyle = self.readStatusStyle
             additionalConfiguration?()
         }
     }

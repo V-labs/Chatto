@@ -47,6 +47,11 @@ public protocol PhotoMessageViewModelProtocol: DecoratedMessageViewModelProtocol
 }
 
 open class PhotoMessageViewModel<PhotoMessageModelT: PhotoMessageModelProtocol>: PhotoMessageViewModelProtocol {
+    
+    public var readStatusViewModel: ReadStatusViewModelProtocol {
+        return self.messageViewModel.readStatusViewModel
+    }
+    
     public var photoMessage: PhotoMessageModelProtocol {
         return self._photoMessage
     }

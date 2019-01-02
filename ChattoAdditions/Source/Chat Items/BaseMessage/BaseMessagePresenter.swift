@@ -61,14 +61,12 @@ BubbleViewT: BackgroundSizingQueryable {
             interactionHandler: InteractionHandlerT?,
             sizingCell: BaseMessageCollectionViewCell<BubbleViewT>,
             cellStyle: BaseMessageCollectionViewCellStyleProtocol,
-            readStatusViewModel: ReadStatusViewModel,
             readStatusStyle: ReadStatusViewStyleProtocol) {
         self.messageModel = messageModel
         self.sizingCell = sizingCell
         self.viewModelBuilder = viewModelBuilder
         self.cellStyle = cellStyle
         self.interactionHandler = interactionHandler
-        self.readStatusViewModel = readStatusViewModel
         self.readStatusStyle = readStatusStyle
     }
 
@@ -77,7 +75,6 @@ BubbleViewT: BackgroundSizingQueryable {
     public let viewModelBuilder: ViewModelBuilderT
     public let interactionHandler: InteractionHandlerT?
     public let cellStyle: BaseMessageCollectionViewCellStyleProtocol
-    public var readStatusViewModel: ReadStatusViewModel
     public let readStatusStyle: ReadStatusViewStyleProtocol
 
     public private(set) final lazy var messageViewModel: ViewModelT = {
@@ -100,7 +97,6 @@ BubbleViewT: BackgroundSizingQueryable {
         }
 
         self.decorationAttributes = decorationAttributes
-        cell.readStatusViewModel = self.readStatusViewModel
         self.configureCell(cell, decorationAttributes: decorationAttributes, animated: false, additionalConfiguration: nil)
     }
 
@@ -113,6 +109,7 @@ BubbleViewT: BackgroundSizingQueryable {
             self.messageViewModel.isUserInteractionEnabled = true
             cell.baseStyle = self.cellStyle
             cell.messageViewModel = self.messageViewModel
+            cell.readStatusStyle = self.readStatusStyle
 
             cell.allowAccessoryViewRevealing = !decorationAttributes.messageDecorationAttributes.isShowingSelectionIndicator
             cell.onBubbleTapped = { [weak self] (cell) in

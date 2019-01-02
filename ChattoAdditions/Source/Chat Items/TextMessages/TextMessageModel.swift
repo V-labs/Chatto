@@ -29,6 +29,10 @@ public protocol TextMessageModelProtocol: DecoratedMessageModelProtocol {
 }
 
 open class TextMessageModel<MessageModelT: MessageModelProtocol>: TextMessageModelProtocol {
+    public var readStatusModel: ReadStatusModelProtocol {
+        return self._messageModel.readStatusModel
+    }
+    
     public var messageModel: MessageModelProtocol {
         return self._messageModel
     }

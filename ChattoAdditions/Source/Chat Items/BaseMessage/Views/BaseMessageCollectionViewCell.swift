@@ -99,23 +99,23 @@ BubbleViewType: BackgroundSizingQueryable {
 
     open var messageViewModel: MessageViewModelProtocol! {
         didSet {
-            if let _ = self.readStatusViewModel {
+//            if let _ = self.readStatusViewModel {
                 self.updateViews()
-            }
+//            }
         }
     }
 
     public var baseStyle: BaseMessageCollectionViewCellStyleProtocol! {
         didSet {
-            if let _ = self.readStatusViewModel {
+//            if let _ = self.readStatusViewModel {
                 self.updateViews()
-            }
+//            }
         }
     }
 
     public var readStatusStyle: ReadStatusViewStyleProtocol! {
         didSet {
-            self.readStatusLabel.style = self.readStatusStyle
+            self.readStatusView.style = self.readStatusStyle
         }
     }
 
@@ -152,15 +152,15 @@ BubbleViewType: BackgroundSizingQueryable {
 
     public var readStatusViewModel: ReadStatusViewModelProtocol! {
         didSet {
-            self.readStatusLabel.readStatusViewModel = self.readStatusViewModel
+            self.readStatusView.readStatusViewModel = self.readStatusViewModel
         }
     }
 
-    public private(set) var readStatusLabel: ReadStatusView!
+    public private(set) var readStatusView: ReadStatusView!
 
-    func createReadStatusLabel() -> ReadStatusView! {
+    func createReadStatusView() -> ReadStatusView! {
         let readStatus = ReadStatusView(frame: .zero)
-        readStatus.readStatusViewModel = readStatusViewModel
+        readStatus.readStatusViewModel = nil
         return readStatus
     }
 
@@ -194,7 +194,7 @@ BubbleViewType: BackgroundSizingQueryable {
         self.avatarView = self.createAvatarView()
         self.avatarView.addGestureRecognizer(self.avatarTapGestureRecognizer)
         self.bubbleView = self.createBubbleView()
-        self.readStatusLabel = self.createReadStatusLabel()
+        self.readStatusView = self.createReadStatusView()
         self.bubbleView.isExclusiveTouch = true
         self.bubbleView.addGestureRecognizer(self.tapGestureRecognizer)
         self.bubbleView.addGestureRecognizer(self.longPressGestureRecognizer)
@@ -202,7 +202,7 @@ BubbleViewType: BackgroundSizingQueryable {
         self.contentView.addSubview(self.bubbleView)
         self.contentView.addSubview(self.failedButton)
         self.contentView.addSubview(self.selectionIndicator)
-        self.contentView.addSubview(self.readStatusLabel)
+        self.contentView.addSubview(self.readStatusView)
         self.contentView.isExclusiveTouch = true
         self.isExclusiveTouch = true
 
@@ -251,7 +251,7 @@ BubbleViewType: BackgroundSizingQueryable {
             self.failedButton.alpha = 0
         }
 
-        self.readStatusLabel.isHidden = viewModel.isIncoming
+        self.updateReadStatusViewModel(from: viewModel)
 
         self.accessoryTimestampView.attributedText = style.attributedStringForDate(viewModel.date)
         self.updateAvatarView(from: viewModel, with: style)
@@ -262,6 +262,11 @@ BubbleViewType: BackgroundSizingQueryable {
 
         self.setNeedsLayout()
         self.layoutIfNeeded()
+    }
+    
+    private func updateReadStatusViewModel(from viewModel: MessageViewModelProtocol) {
+        self.readStatusView.isHidden = viewModel.isIncoming
+        self.readStatusView.readStatusViewModel = viewModel.readStatusViewModel
     }
 
     private func updateAvatarView(from viewModel: MessageViewModelProtocol,
@@ -287,9 +292,9 @@ BubbleViewType: BackgroundSizingQueryable {
         self.bubbleView.layoutIfNeeded()
 
         if !self.messageViewModel.isIncoming {
-            self.readStatusLabel.bma_rect = layout.readStatusLabelFrame
-            self.readStatusLabel.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
-            self.readStatusLabel.layoutIfNeeded()
+            self.readStatusView.bma_rect = layout.readStatusViewFrame
+            self.readStatusView.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
+            self.readStatusView.layoutIfNeeded()
         }
 
         self.avatarView.bma_rect = layout.avatarViewFrame
@@ -332,7 +337,7 @@ BubbleViewType: BackgroundSizingQueryable {
                 isShowingSelectionIndicator: self.messageViewModel.decorationAttributes.isShowingSelectionIndicator,
                 selectionIndicatorSize: self.baseStyle.selectionIndicatorIcon(for: self.messageViewModel).size,
                 selectionIndicatorMargins: self.baseStyle.selectionIndicatorMargins,
-                readStatusLabel: self.readStatusLabel
+                readStatusView: self.readStatusView
         )
         var layoutModel = Layout()
         layoutModel.calculateLayout(parameters: parameters)
@@ -460,7 +465,7 @@ private struct Layout {
     private (set) var size = CGSize.zero
     private (set) var failedButtonFrame = CGRect.zero
     private (set) var bubbleViewFrame = CGRect.zero
-    private (set) var readStatusLabelFrame = CGRect.zero
+    private (set) var readStatusViewFrame = CGRect.zero
     private (set) var avatarViewFrame = CGRect.zero
     private (set) var selectionIndicatorFrame = CGRect.zero
     private (set) var preferredMaxWidthForBubble: CGFloat = 0
@@ -475,12 +480,12 @@ private struct Layout {
         let horizontalInterspacing = parameters.horizontalInterspacing
         let avatarSize = parameters.avatarSize
         let selectionIndicatorSize = parameters.selectionIndicatorSize
-        let readStatusLabel = parameters.readStatusLabel
+        let readStatusView = parameters.readStatusView
 
         let preferredWidthForBubble = (containerWidth * parameters.maxContainerWidthPercentageForBubbleView).bma_round()
         let bubbleSize = bubbleView.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
-        let readStatusLabelSize = readStatusLabel.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
-        let containerRect = CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: bubbleSize.height + readStatusLabelSize.height))
+        let readStatusViewSize = readStatusView.sizeThatFits(CGSize(width: preferredWidthForBubble, height: .greatestFiniteMagnitude))
+        let containerRect = CGRect(origin: CGPoint.zero, size: CGSize(width: containerWidth, height: bubbleSize.height + readStatusViewSize.height))
 
         self.bubbleViewFrame = bubbleSize.bma_rect(
                 inContainer: containerRect,
@@ -506,7 +511,7 @@ private struct Layout {
                 yAlignment: .center
         )
 
-        self.readStatusLabelFrame = readStatusLabelSize.bma_rect(
+        self.readStatusViewFrame = readStatusViewSize.bma_rect(
                 inContainer: containerRect,
                 xAlignament: .right,
                 yAlignment: .bottom
@@ -556,7 +561,7 @@ private struct Layout {
         }
 
         self.size = containerRect.size
-        self.size.height += self.readStatusLabelFrame.size.height / 2
+        self.size.height += self.readStatusViewFrame.size.height / 2
         self.preferredMaxWidthForBubble = preferredWidthForBubble
     }
 }
@@ -575,5 +580,5 @@ private struct LayoutParameters {
     let isShowingSelectionIndicator: Bool
     let selectionIndicatorSize: CGSize
     let selectionIndicatorMargins: UIEdgeInsets
-    let readStatusLabel: UIView
+    let readStatusView: UIView
 }
