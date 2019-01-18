@@ -261,7 +261,6 @@ BubbleViewType: BackgroundSizingQueryable {
         self.selectionTapGestureRecognizer?.isEnabled = viewModel.decorationAttributes.isShowingSelectionIndicator
 
         self.setNeedsLayout()
-        self.layoutIfNeeded()
     }
     
     private func updateReadStatusViewModel(from viewModel: MessageViewModelProtocol) {

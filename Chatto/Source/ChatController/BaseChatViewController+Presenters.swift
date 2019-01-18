@@ -25,11 +25,11 @@
 import Foundation
 
 extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
-
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.chatItemCompanionCollection.count
     }
-
+    
     @objc(collectionView:cellForItemAtIndexPath:)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let presenter = self.presenterForIndexPath(indexPath)
@@ -38,7 +38,7 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
         presenter.configureCell(cell, decorationAttributes: decorationAttributes)
         return cell
     }
-
+    
     @objc(collectionView:didEndDisplayingCell:forItemAtIndexPath:)
     open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Carefull: this index path can refer to old data source after an update. Don't use it to grab items from the model
@@ -47,7 +47,7 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
             self.presentersByCell.removeObject(forKey: cell)
             oldPresenterForCell.cellWasHidden(cell)
         }
-
+        
         if self.updatesConfig.fastUpdates {
             if let visibleCell = self.visibleCells[indexPath], visibleCell === cell {
                 self.visibleCells[indexPath] = nil
@@ -61,17 +61,17 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
             }
         }
     }
-
+    
     @objc(collectionView:willDisplayCell:forItemAtIndexPath:)
     open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Here indexPath should always referer to updated data source.
-
+        
         let presenter = self.presenterForIndexPath(indexPath)
         self.presentersByCell.setObject(presenter, forKey: cell)
         if self.updatesConfig.fastUpdates {
             self.visibleCells[indexPath] = cell
         }
-
+        
         if self.isAdjustingInputContainer {
             UIView.performWithoutAnimation({
                 // See https://github.com/badoo/Chatto/issues/133
@@ -82,7 +82,7 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
             presenter.cellWillBeShown(cell)
         }
     }
-
+    
     @objc(collectionView:shouldShowMenuForItemAtIndexPath:)
     open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath?) -> Bool {
         // Note: IndexPath set optional due to https://github.com/badoo/Chatto/issues/310
@@ -90,7 +90,7 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
         guard let indexPath = indexPath else { return false }
         return self.presenterForIndexPath(indexPath).shouldShowMenu()
     }
-
+    
     @objc(collectionView:canPerformAction:forItemAtIndexPath:withSender:)
     open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath?, withSender sender: Any?) -> Bool {
         // Note: IndexPath set optional due to https://github.com/badoo/Chatto/issues/247. SR-2417 might be related
@@ -98,16 +98,16 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
         guard let indexPath = indexPath else { return false }
         return self.presenterForIndexPath(indexPath).canPerformMenuControllerAction(action)
     }
-
+    
     @objc(collectionView:performAction:forItemAtIndexPath:withSender:)
     open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         self.presenterForIndexPath(indexPath).performMenuControllerAction(action)
     }
-
+    
     func presenterForIndexPath(_ indexPath: IndexPath) -> ChatItemPresenterProtocol {
         return self.presenterForIndex(indexPath.item, chatItemCompanionCollection: self.chatItemCompanionCollection)
     }
-
+    
     func presenterForIndex(_ index: Int, chatItemCompanionCollection items: ChatItemCompanionCollection) -> ChatItemPresenterProtocol {
         guard index < items.count else {
             // This can happen from didEndDisplayingCell if we reloaded with less messages
@@ -115,18 +115,22 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
         }
         return items[index].presenter
     }
-
+    
     public func createPresenterForChatItem(_ chatItem: ChatItemProtocol) -> ChatItemPresenterProtocol {
         assert(self.presenterFactory != nil, "Presenter factory is not initialized")
         return self.presenterFactory.createChatItemPresenter(chatItem)
     }
-
+    
     public func confugureCollectionViewWithPresenters() {
         assert(self.presenterFactory == nil, "Presenter factory is already initialized")
+        guard let collectionView = self.collectionView else {
+            assertionFailure("CollectionView is not initialized")
+            return
+        }
         self.presenterFactory = self.createPresenterFactory()
-        self.presenterFactory.configure(withCollectionView: self.collectionView)
+        self.presenterFactory.configure(withCollectionView: collectionView )
     }
-
+    
     public func decorationAttributesForIndexPath(_ indexPath: IndexPath) -> ChatItemDecorationAttributesProtocol? {
         return self.chatItemCompanionCollection[indexPath.item].decorationAttributes
     }
