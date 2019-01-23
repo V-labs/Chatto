@@ -47,7 +47,25 @@ class ChatInputItemView: UIView {
 
     weak var delegate: ChatInputItemViewDelegate?
     @objc func handleTap() {
+        if self.inputItem.presentationMode != .keyboard {
+            self.showMediaDisclaimer {
+                self.delegate?.inputItemViewTapped(self)
+            }
+            
+            return
+        }
         self.delegate?.inputItemViewTapped(self)
+    }
+    
+    private func showMediaDisclaimer(okAction: @escaping ()->()) {
+        let alert = UIAlertController(title: NSLocalizedString("chat.alert.disclaimer", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("chat.alert.understood", comment: ""), style: .default, handler: { action in
+            okAction()
+        }))
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("app.cancel", comment: ""), style: UIAlertActionStyle.cancel, handler: nil))
+        
+        alert.show()
     }
 
     var inputItem: ChatInputItemProtocol! {

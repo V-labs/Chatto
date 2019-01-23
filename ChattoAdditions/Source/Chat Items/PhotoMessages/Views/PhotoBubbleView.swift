@@ -110,6 +110,10 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
     }
 
     public private(set) var isUpdating: Bool = false
+    
+    public func releaseMasking() {
+        self.imageView.layer.mask = nil
+    }
 
     public func performBatchUpdates(_ updateClosure: @escaping () -> Void, animated: Bool, completion: (() -> Void)?) {
         self.isUpdating = true
@@ -225,7 +229,9 @@ open class PhotoBubbleView: UIView, MaximumLayoutWidthSpecificable, BackgroundSi
             self.overlayView.alpha = 0
         }
         self.borderView.image = self.photoMessageStyle.borderImage(viewModel: photoMessageViewModel)
-        self.imageView.layer.mask = UIImageView(image: self.photoMessageStyle.maskingImage(viewModel: self.photoMessageViewModel)).layer
+        if self.imageView.layer.mask == nil {
+            self.imageView.layer.mask = UIImageView(image: self.photoMessageStyle.maskingImage(viewModel: self.photoMessageViewModel)).layer
+        }
     }
 
     private func updateAuthor() {

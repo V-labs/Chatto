@@ -63,4 +63,9 @@ public final class PhotoMessageCollectionViewCell: BaseMessageCollectionViewCell
             self.bubbleView.performBatchUpdates(updateClosure, animated: false, completion: nil)
         }, animated: animated, completion: completion)
     }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        self.bubbleView.releaseMasking()
+    }
 }

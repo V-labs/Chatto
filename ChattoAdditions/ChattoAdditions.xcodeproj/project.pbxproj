@@ -11,6 +11,8 @@
 		0A31B5D121DD0CC400428DEE /* ReadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */; };
 		0A31B5D321DD0D2200428DEE /* ReadStatusViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */; };
 		0AE324BB21CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */; };
+		0AF536E321F712F900D868D6 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF536E221F712F900D868D6 /* AnimationUtils.swift */; };
+		0AF536E521F7130700D868D6 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF536E421F7130700D868D6 /* Observable.swift */; };
 		0B44651620347C11001ED5F1 /* DeviceImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */; };
 		3907DBAF27F9A201978EDDC1 /* BaseMessageCollectionViewCellDefaultStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */; };
 		3BF6E1788C11E865F1B58684 /* ReadStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */; };
@@ -44,7 +46,6 @@
 		C36F9C4B1BFE4A89001E9D8F /* ChattoAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C0CC961BFE4A2A0052747C /* ChattoAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3815D001C036B3000DF95CA /* PhotoMessagePresenterBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3815CFF1C036B3000DF95CA /* PhotoMessagePresenterBuilderTests.swift */; };
 		C3815D021C036D1700DF95CA /* TextMessagePresenterBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3815D011C036D1700DF95CA /* TextMessagePresenterBuilderTests.swift */; };
-		C38658B21BFE55620012F181 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38658B11BFE55620012F181 /* AnimationUtils.swift */; };
 		C3C0CBC31BFE49320052747C /* ChattoAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C0CBB81BFE49320052747C /* ChattoAdditions.framework */; };
 		C3C0CC2A1BFE496A0052747C /* BaseMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CBD81BFE496A0052747C /* BaseMessageModel.swift */; };
 		C3C0CC2B1BFE496A0052747C /* BaseMessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CBD91BFE496A0052747C /* BaseMessagePresenter.swift */; };
@@ -133,6 +134,8 @@
 		0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModel.swift; sourceTree = "<group>"; };
 		0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModelProtocol.swift; sourceTree = "<group>"; };
 		0AE324B921CBD18D00A12253 /* ReadStatusViewDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusViewDefaultStyle.swift; sourceTree = "<group>"; };
+		0AF536E221F712F900D868D6 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationUtils.swift; sourceTree = "<group>"; };
+		0AF536E421F7130700D868D6 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceImagePicker.swift; sourceTree = "<group>"; };
 		3907D74597451AA0F6DAE924 /* BaseMessageCollectionViewCellDefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCollectionViewCellDefaultStyle.swift; sourceTree = "<group>"; };
 		3BF6E2986CEFA7481374C61B /* ReadStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStatusView.swift; sourceTree = "<group>"; };
@@ -165,7 +168,6 @@
 		C363C33E1D2405F800599FF5 /* LiveCameraCellPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenterTests.swift; sourceTree = "<group>"; };
 		C3815CFF1C036B3000DF95CA /* PhotoMessagePresenterBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMessagePresenterBuilderTests.swift; sourceTree = "<group>"; };
 		C3815D011C036D1700DF95CA /* TextMessagePresenterBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessagePresenterBuilderTests.swift; sourceTree = "<group>"; };
-		C38658B11BFE55620012F181 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationUtils.swift; sourceTree = "<group>"; };
 		C3C0CBB81BFE49320052747C /* ChattoAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ChattoAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3C0CBC21BFE49320052747C /* ChattoAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattoAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3C0CBD81BFE496A0052747C /* BaseMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageModel.swift; sourceTree = "<group>"; };
@@ -266,6 +268,8 @@
 		55ABA5521FC738E300923302 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0AF536E421F7130700D868D6 /* Observable.swift */,
+				0AF536E221F712F900D868D6 /* AnimationUtils.swift */,
 				55ABA5531FC739C300923302 /* Alignment.swift */,
 				55ABA55C1FC742A600923302 /* CGFloat+Additions.swift */,
 				55ABA5621FC7444700923302 /* CGPoint+Additions.swift */,
@@ -337,7 +341,6 @@
 			children = (
 				A511490D1F21276E0015FF79 /* Localizable.strings */,
 				A511490E1F21276E0015FF79 /* UIAlertController+Extensions.swift */,
-				C38658B11BFE55620012F181 /* AnimationUtils.swift */,
 				C3C0CC961BFE4A2A0052747C /* ChattoAdditions.h */,
 				C3C0CC021BFE496A0052747C /* Info.plist */,
 				55ABA5521FC738E300923302 /* Common */,
@@ -730,7 +733,6 @@
 				C3C9BC8F1D11540D00F3A54E /* TabInputButton.swift in Sources */,
 				A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */,
 				C3C0CC3B1BFE496A0052747C /* PhotoMessageCollectionViewCellDefaultStyle.swift in Sources */,
-				C38658B21BFE55620012F181 /* AnimationUtils.swift in Sources */,
 				C3C0CC381BFE496A0052747C /* PhotoBubbleView.swift in Sources */,
 				0A31B5CF21DD0C8200428DEE /* ReadStatusModelProtocol.swift in Sources */,
 				C3C0CC3D1BFE496A0052747C /* TextMessagePresenter.swift in Sources */,
@@ -776,6 +778,7 @@
 				A51149101F21276E0015FF79 /* UIAlertController+Extensions.swift in Sources */,
 				C3C0CC641BFE496A0052747C /* Observable.swift in Sources */,
 				C3C0CC2E1BFE496A0052747C /* BaseMessageCollectionViewCell.swift in Sources */,
+				0AF536E521F7130700D868D6 /* Observable.swift in Sources */,
 				C3C0CC5A1BFE496A0052747C /* PhotosInputCameraPicker.swift in Sources */,
 				CDC610061FD80C2B00C2588E /* PhotosInputPlaceholderDataProvider.swift in Sources */,
 				55ABA56F1FC74D8F00923302 /* UIColor+Additions.swift in Sources */,
@@ -783,6 +786,7 @@
 				C3C0CC551BFE496A0052747C /* ExpandableTextView.swift in Sources */,
 				C33DEA451D23F825002AAD26 /* LiveCameraCellPresenter.swift in Sources */,
 				C3C0CC6B1BFE496A0052747C /* CircleProgressView.m in Sources */,
+				0AF536E321F712F900D868D6 /* AnimationUtils.swift in Sources */,
 				55ABA56D1FC74D0400923302 /* UIImage+Additions.swift in Sources */,
 				C3C0CC371BFE496A0052747C /* PhotoMessageViewModel.swift in Sources */,
 				C3C0CC5B1BFE496A0052747C /* PhotosInputCell.swift in Sources */,
