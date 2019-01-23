@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A2B467521F9C70C00DBDD7A /* LiveCameraCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B467221F9C70C00DBDD7A /* LiveCameraCaptureSession.swift */; };
+		0A2B467621F9C70C00DBDD7A /* LiveCameraCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B467321F9C70C00DBDD7A /* LiveCameraCellPresenter.swift */; };
+		0A2B467721F9C70C00DBDD7A /* LiveCameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B467421F9C70C00DBDD7A /* LiveCameraCell.swift */; };
 		0A31B5CF21DD0C8200428DEE /* ReadStatusModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5CE21DD0C8200428DEE /* ReadStatusModelProtocol.swift */; };
 		0A31B5D121DD0CC400428DEE /* ReadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */; };
 		0A31B5D321DD0D2200428DEE /* ReadStatusViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */; };
@@ -38,8 +41,6 @@
 		A52037161EB3A88E0062F983 /* AuthorModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */; };
 		A52037171EB3A88E0062F983 /* AuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037141EB3A88E0062F983 /* AuthorViewModel.swift */; };
 		A52037181EB3A88E0062F983 /* AuthorViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */; };
-		C33DEA451D23F825002AAD26 /* LiveCameraCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */; };
-		C33DEA471D23F8C8002AAD26 /* LiveCameraCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */; };
 		C35FE3C51C0331CF00D42980 /* TextMessagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */; };
 		C35FE3C81C033E7800D42980 /* PhotoMessagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35FE3C71C033E7800D42980 /* PhotoMessagePresenterTests.swift */; };
 		C363C33F1D2405F800599FF5 /* LiveCameraCellPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363C33E1D2405F800599FF5 /* LiveCameraCellPresenterTests.swift */; };
@@ -76,7 +77,6 @@
 		C3C0CC541BFE496A0052747C /* ChatInputItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC091BFE496A0052747C /* ChatInputItemView.swift */; };
 		C3C0CC551BFE496A0052747C /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC0A1BFE496A0052747C /* ExpandableTextView.swift */; };
 		C3C0CC561BFE496A0052747C /* HorizontalStackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC0B1BFE496A0052747C /* HorizontalStackScrollView.swift */; };
-		C3C0CC571BFE496A0052747C /* LiveCameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC0D1BFE496A0052747C /* LiveCameraCell.swift */; };
 		C3C0CC581BFE496A0052747C /* Photos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3C0CC0E1BFE496A0052747C /* Photos.xcassets */; };
 		C3C0CC591BFE496A0052747C /* PhotosChatInputItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC0F1BFE496A0052747C /* PhotosChatInputItem.swift */; };
 		C3C0CC5A1BFE496A0052747C /* PhotosInputCameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC101BFE496A0052747C /* PhotosInputCameraPicker.swift */; };
@@ -88,7 +88,6 @@
 		C3C0CC601BFE496A0052747C /* ReusableXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC161BFE496A0052747C /* ReusableXibView.swift */; };
 		C3C0CC611BFE496A0052747C /* Text.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3C0CC181BFE496A0052747C /* Text.xcassets */; };
 		C3C0CC621BFE496A0052747C /* TextChatInputItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC191BFE496A0052747C /* TextChatInputItem.swift */; };
-		C3C0CC641BFE496A0052747C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC1B1BFE496A0052747C /* Observable.swift */; };
 		C3C0CC661BFE496A0052747C /* CircleIconView.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C0CC1F1BFE496A0052747C /* CircleIconView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3C0CC671BFE496A0052747C /* CircleIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C0CC201BFE496A0052747C /* CircleIconView.m */; };
 		C3C0CC681BFE496A0052747C /* CircleProgressIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C0CC211BFE496A0052747C /* CircleProgressIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -130,6 +129,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A2B467221F9C70C00DBDD7A /* LiveCameraCaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCaptureSession.swift; sourceTree = "<group>"; };
+		0A2B467321F9C70C00DBDD7A /* LiveCameraCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenter.swift; sourceTree = "<group>"; };
+		0A2B467421F9C70C00DBDD7A /* LiveCameraCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCell.swift; sourceTree = "<group>"; };
 		0A31B5CE21DD0C8200428DEE /* ReadStatusModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusModelProtocol.swift; sourceTree = "<group>"; };
 		0A31B5D021DD0CC400428DEE /* ReadStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModel.swift; sourceTree = "<group>"; };
 		0A31B5D221DD0D2200428DEE /* ReadStatusViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStatusViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -161,8 +163,6 @@
 		A52037131EB3A88E0062F983 /* AuthorModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModelProtocol.swift; sourceTree = "<group>"; };
 		A52037141EB3A88E0062F983 /* AuthorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModel.swift; sourceTree = "<group>"; };
 		A52037151EB3A88E0062F983 /* AuthorViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewModelProtocol.swift; sourceTree = "<group>"; };
-		C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenter.swift; sourceTree = "<group>"; };
-		C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCaptureSession.swift; sourceTree = "<group>"; };
 		C35FE3C41C0331CF00D42980 /* TextMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessagePresenterTests.swift; sourceTree = "<group>"; };
 		C35FE3C71C033E7800D42980 /* PhotoMessagePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMessagePresenterTests.swift; sourceTree = "<group>"; };
 		C363C33E1D2405F800599FF5 /* LiveCameraCellPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCellPresenterTests.swift; sourceTree = "<group>"; };
@@ -201,7 +201,6 @@
 		C3C0CC091BFE496A0052747C /* ChatInputItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputItemView.swift; sourceTree = "<group>"; };
 		C3C0CC0A1BFE496A0052747C /* ExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		C3C0CC0B1BFE496A0052747C /* HorizontalStackScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalStackScrollView.swift; sourceTree = "<group>"; };
-		C3C0CC0D1BFE496A0052747C /* LiveCameraCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCameraCell.swift; sourceTree = "<group>"; };
 		C3C0CC0E1BFE496A0052747C /* Photos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Photos.xcassets; sourceTree = "<group>"; };
 		C3C0CC0F1BFE496A0052747C /* PhotosChatInputItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosChatInputItem.swift; sourceTree = "<group>"; };
 		C3C0CC101BFE496A0052747C /* PhotosInputCameraPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInputCameraPicker.swift; sourceTree = "<group>"; };
@@ -213,7 +212,6 @@
 		C3C0CC161BFE496A0052747C /* ReusableXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableXibView.swift; sourceTree = "<group>"; };
 		C3C0CC181BFE496A0052747C /* Text.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Text.xcassets; sourceTree = "<group>"; };
 		C3C0CC191BFE496A0052747C /* TextChatInputItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextChatInputItem.swift; sourceTree = "<group>"; };
-		C3C0CC1B1BFE496A0052747C /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C3C0CC1F1BFE496A0052747C /* CircleIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleIconView.h; sourceTree = "<group>"; };
 		C3C0CC201BFE496A0052747C /* CircleIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleIconView.m; sourceTree = "<group>"; };
 		C3C0CC211BFE496A0052747C /* CircleProgressIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressIndicatorView.h; sourceTree = "<group>"; };
@@ -347,7 +345,6 @@
 				C3C0CBD51BFE496A0052747C /* Chat Items */,
 				C3C0CC031BFE496A0052747C /* Input */,
 				C3C0CC1D1BFE496A0052747C /* UI Components */,
-				C3C0CC1B1BFE496A0052747C /* Observable.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -463,9 +460,6 @@
 				CDC610021FD80B5900C2588E /* Placeholder */,
 				CDC610011FD80B4A00C2588E /* Photo */,
 				CDC610001FD80B4200C2588E /* Camera */,
-				C33DEA461D23F8C8002AAD26 /* LiveCameraCaptureSession.swift */,
-				C3C0CC0D1BFE496A0052747C /* LiveCameraCell.swift */,
-				C33DEA441D23F825002AAD26 /* LiveCameraCellPresenter.swift */,
 				C3C0CC0E1BFE496A0052747C /* Photos.xcassets */,
 				C3C0CC0F1BFE496A0052747C /* PhotosChatInputItem.swift */,
 				C3C0CC131BFE496A0052747C /* PhotosInputWithPlaceholdersDataProvider.swift */,
@@ -565,6 +559,9 @@
 		CDC610001FD80B4200C2588E /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				0A2B467421F9C70C00DBDD7A /* LiveCameraCell.swift */,
+				0A2B467221F9C70C00DBDD7A /* LiveCameraCaptureSession.swift */,
+				0A2B467321F9C70C00DBDD7A /* LiveCameraCellPresenter.swift */,
 				0B44651420347C11001ED5F1 /* DeviceImagePicker.swift */,
 				C3C0CC101BFE496A0052747C /* PhotosInputCameraPicker.swift */,
 				CD240FA7D32306EC2284C287 /* ImagePicker.swift */,
@@ -737,7 +734,6 @@
 				0A31B5CF21DD0C8200428DEE /* ReadStatusModelProtocol.swift in Sources */,
 				C3C0CC3D1BFE496A0052747C /* TextMessagePresenter.swift in Sources */,
 				C3C0CC3F1BFE496A0052747C /* TextMessageViewModel.swift in Sources */,
-				C3C0CC571BFE496A0052747C /* LiveCameraCell.swift in Sources */,
 				C3C0CC591BFE496A0052747C /* PhotosChatInputItem.swift in Sources */,
 				C3C0CC3A1BFE496A0052747C /* PhotoMessageCollectionViewCell.swift in Sources */,
 				0A31B5D321DD0D2200428DEE /* ReadStatusViewModelProtocol.swift in Sources */,
@@ -756,7 +752,9 @@
 				55ABA55D1FC742A600923302 /* CGFloat+Additions.swift in Sources */,
 				C3C0CC2C1BFE496A0052747C /* BaseMessageViewModel.swift in Sources */,
 				CDC610081FD80CDA00C2588E /* PhotosInputDataProvider.swift in Sources */,
+				0A2B467721F9C70C00DBDD7A /* LiveCameraCell.swift in Sources */,
 				C3C0CC601BFE496A0052747C /* ReusableXibView.swift in Sources */,
+				0A2B467521F9C70C00DBDD7A /* LiveCameraCaptureSession.swift in Sources */,
 				C3C0CC351BFE496A0052747C /* PhotoMessagePresenter.swift in Sources */,
 				C3C0CC341BFE496A0052747C /* PhotoMessageModel.swift in Sources */,
 				55ABA5561FC73A3C00923302 /* CGSize+Additions.swift in Sources */,
@@ -767,6 +765,7 @@
 				CDC60FFD1FD7259200C2588E /* PhotosInputPlaceholderCell.swift in Sources */,
 				55ABA5541FC739C300923302 /* Alignment.swift in Sources */,
 				C3C0CC431BFE496A0052747C /* TextMessageCollectionViewCellDefaultStyle.swift in Sources */,
+				0A2B467621F9C70C00DBDD7A /* LiveCameraCellPresenter.swift in Sources */,
 				C3C0CC521BFE496A0052747C /* ChatInputBarPresenter.swift in Sources */,
 				C3C0CC401BFE496A0052747C /* TextBubbleView.swift in Sources */,
 				CDC60FFE1FD727A200C2588E /* ChatItemDecorationAttributes.swift in Sources */,
@@ -776,7 +775,6 @@
 				C3C0CC3E1BFE496A0052747C /* TextMessagePresenterBuilder.swift in Sources */,
 				C3C0CC511BFE496A0052747C /* ChatInputBarAppearance.swift in Sources */,
 				A51149101F21276E0015FF79 /* UIAlertController+Extensions.swift in Sources */,
-				C3C0CC641BFE496A0052747C /* Observable.swift in Sources */,
 				C3C0CC2E1BFE496A0052747C /* BaseMessageCollectionViewCell.swift in Sources */,
 				0AF536E521F7130700D868D6 /* Observable.swift in Sources */,
 				C3C0CC5A1BFE496A0052747C /* PhotosInputCameraPicker.swift in Sources */,
@@ -784,7 +782,6 @@
 				55ABA56F1FC74D8F00923302 /* UIColor+Additions.swift in Sources */,
 				55ABA5711FC74DB400923302 /* UIView+Additions.swift in Sources */,
 				C3C0CC551BFE496A0052747C /* ExpandableTextView.swift in Sources */,
-				C33DEA451D23F825002AAD26 /* LiveCameraCellPresenter.swift in Sources */,
 				C3C0CC6B1BFE496A0052747C /* CircleProgressView.m in Sources */,
 				0AF536E321F712F900D868D6 /* AnimationUtils.swift in Sources */,
 				55ABA56D1FC74D0400923302 /* UIImage+Additions.swift in Sources */,
@@ -792,7 +789,6 @@
 				C3C0CC5B1BFE496A0052747C /* PhotosInputCell.swift in Sources */,
 				C3C0CC561BFE496A0052747C /* HorizontalStackScrollView.swift in Sources */,
 				C3C0CC5F1BFE496A0052747C /* PhotosInputViewItemSizeCalculator.swift in Sources */,
-				C33DEA471D23F8C8002AAD26 /* LiveCameraCaptureSession.swift in Sources */,
 				CDC610041FD80BB900C2588E /* PhotosInputPlaceholderCellProvider.swift in Sources */,
 				C3C0CC671BFE496A0052747C /* CircleIconView.m in Sources */,
 				C3C0CC301BFE496A0052747C /* ViewDefinitions.swift in Sources */,

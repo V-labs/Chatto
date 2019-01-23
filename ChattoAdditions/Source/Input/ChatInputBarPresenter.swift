@@ -93,7 +93,7 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
             responder.becomeFirstResponder()
         }
     }
-
+    
     fileprivate func firstKeyboardInputItem() -> ChatInputItemProtocol? {
         var firstKeyboardInputItem: ChatInputItemProtocol?
         for inputItem in self.chatInputItems where inputItem.presentationMode == .keyboard {
@@ -134,7 +134,7 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
         guard self.focusedItem != nil else { return }
         guard let value = (notification as NSNotification).userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         guard value.cgRectValue.height > 0 else { return }
-        self.lastKnownKeyboardHeight = value.cgRectValue.height - self.chatInputBar.bounds.height
+        self.lastKnownKeyboardHeight = value.cgRectValue.height - (self.chatInputBar.bounds.height - self.chatInputBar.disclaimerLabel.bounds.height - self.chatInputBar.isTypingLabel.bounds.height)
     }
 
     @objc
