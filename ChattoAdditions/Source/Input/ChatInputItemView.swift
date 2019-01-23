@@ -58,12 +58,12 @@ class ChatInputItemView: UIView {
     }
     
     private func showMediaDisclaimer(okAction: @escaping ()->()) {
-        let alert = UIAlertController(title: NSLocalizedString("chat.alert.disclaimer", comment: ""), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: NSLocalizedString("chat.alert.disclaimer", comment: ""), message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("chat.alert.understood", comment: ""), style: .default, handler: { action in
             okAction()
         }))
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("app.cancel", comment: ""), style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("app.cancel", comment: ""), style: .cancel, handler: nil))
         
         alert.show()
     }
